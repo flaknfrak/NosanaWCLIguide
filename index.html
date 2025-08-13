@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosana GPU Host Setup Checklist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Enhanced Responsive Design */
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        /* Mobile First Approach */
+        @media screen and (max-width: 480px) {
+            html { font-size: 14px; }
+            body { padding: 10px; }
+            .container, .promotion-section { margin-bottom: 15px; }
+            .header { padding: 20px 15px; }
+            .header h1 { font-size: 1.8em; }
+            .content { padding: 20px 15px; }
+            .socials-links { gap: 8px; }
+            .social-link { padding: 6px 12px; font-size: 0.8em; }
+            .requirements-grid { grid-template-columns: 1fr; gap: 15px; padding: 20px 15px; }
+            .factors-grid { grid-template-columns: 1fr; }
+            .checklist-item { padding: 12px; gap: 12px; }
+            .item-command, .item-command-no-copy { font-size: 0.8em; padding: 12px; }
+            .copy-btn { padding: 3px 6px; font-size: 0.7em; }
+        }
+
+        /* Tablet Portrait */
+        @media screen and (min-width: 481px) and (max-width: 768px) {
+            html { font-size: 15px; }
+            body { padding: 15px; }
+            .header { padding: 25px 20px; }
+            .content { padding: 25px 20px; }
+            .requirements-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); padding: 25px 20px; }
+            .socials-links { gap: 10px; }
+        }
+
+        /* Tablet Landscape & Small Desktop */
+        @media screen and (min-width: 769px) and (max-width: 1024px) {
+            .requirements-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+            .factors-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+        }
+
+        /* Large Desktop */
+        @media screen and (min-width: 1200px) {
+            .container, .promotion-section { max-width: 1200px; }
+            .requirements-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* High DPI Displays */
+        @media screen and (-webkit-min-device-pixel-ratio: 2), 
+               screen and (min-resolution: 192dpi) {
+            body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        }
+
+        /* Print Styles */
+        @media print {
+            body { background: white; color: black; }
+            .container, .promotion-section { box-shadow: none; }
+            .copy-btn { display: none; }
+            .social-link { color: black; }
+        }
+
+        /* Orientation Changes */
+        @media screen and (orientation: landscape) and (max-height: 600px) {
+            .header { padding: 15px; }
+            .header h1 { font-size: 1.5em; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .socials {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        
+        .socials-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        /* Enhanced Grid Responsiveness */
+        .socials-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Flexible Social Links */
+        @media screen and (max-width: 600px) {
+            .socials-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+            .social-link {
+                width: 100%;
+                max-width: 200px;
+                text-align: center;
+            }
+        }
+        
+        .social-link {
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.4em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #3498db;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+        }
+        
+        .checklist-item.completed {
+            background: #d4edda;
+            border-color: #c3e6cb;
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .checkbox.checked {
+            background: #27ae60;
+            border-color: #27ae60;
+            color: white;
+        }
+        
+        .item-content {
+            flex: 1;
+        }
+        
+        .item-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .item-command {
+            background: #0d1117;
+            color: #f0f6fc;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 8px 0;
+            white-space: pre-line;
+            line-height: 1.4;
+            border: 1px solid #30363d;
+            position: relative;
+        }
+        
+        .item-command-no-copy {
+            background: #0d1117;
+            color: #f0f6fc;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 8px 0;
+            white-space: pre-line;
+            line-height: 1.4;
+            border: 1px solid #30363d;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            cursor: pointer;
+            opacity: 0.8;
+        }
+        
+        .copy-btn.copied {
+            background: #1f6feb;
+        }
+        
+        .item-note {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .warning-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        /* Promotion Requirements Section */
+        .promotion-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .promotion-header {
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .promotion-header h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.8em;
+            font-weight: 300;
+        }
+        
+        .promotion-header p {
+            margin: 10px 0 20px 0;
+            opacity: 0.9;
+        }
+        
+        .dashboard-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+        
+        .requirement-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid;
+        }
+        
+        .requirement-card.availability {
+            border-left-color: #27ae60;
+        }
+        
+        .requirement-card.bandwidth {
+            border-left-color: #3498db;
+        }
+        
+        .requirement-card.performance {
+            border-left-color: #e74c3c;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .requirement-icon {
+            font-size: 1.4em;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-header h3 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.2em;
+        }
+        
+        .requirement-value {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #27ae60;
+            margin: 10px 0;
+        }
+        
+        .requirement-specs {
+            margin: 15px 0;
+        }
+        
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+        
+        .spec-value {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+        
+        .card-description {
+            color: #7f8c8d;
+            font-size: 0.95em;
+            margin: 10px 0 15px 0;
+            line-height: 1.4;
+        }
+        
+        .example-link {
+            color: #6c5ce7;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+        
+        .troubleshooting-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 0 30px 20px 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #f39c12;
+        }
+        
+        .issue-list {
+            margin: 15px 0;
+        }
+        
+        .issue-item {
+            padding: 8px 0;
+            color: #e67e22;
+            font-weight: 500;
+        }
+        
+        .success-factors {
+            background: white;
+            margin: 0 30px 20px 30px;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .success-header {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .factors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .factor-item {
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .factor-item.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .factor-item.warning {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .community-markets-info {
+            background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+            color: white;
+            margin: 20px 30px 30px 30px;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .info-header {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .info-content p {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .info-points {
+            display: grid;
+            gap: 8px;
+        }
+        
+        .info-point {
+            padding: 8px 0;
+            opacity: 0.95;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Checklist Container -->
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Nosana GPU Host Setup</h1>
+            <p>Ubuntu 22.04 LTS Installation & Configuration Guide</p>
+            <p>CLI Version for Windows</p>
+            
+            <div class="socials">
+                <div class="socials-title">📱 Socials & Resources</div>
+                <div class="socials-links">
+                    <a href="https://discord.gg/nosana-ai" target="_blank" class="social-link">💬 Discord</a>
+                    <a href="https://x.com/nosana_ai" target="_blank" class="social-link">🐦 Twitter</a>
+                    <a href="https://t.co/PTR0R78gAE" target="_blank" class="social-link">🌐 Website</a>
+                    <a href="https://dashboard.nosana.com/" target="_blank" class="social-link">🔍 GPU Explorer</a>
+                    <a href="https://youtube.com/@machodrone?si=IbAspasEuR48ZQYQ" target="_blank" class="social-link">📺 YouTube</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- Initial Setup -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">🔧</div>
+                    Initial Setup
+                </div>
+                
+                <div class="warning">
+                    <div class="warning-title">⚠️ IMPORTANT FIRST STEP</div>
+                    Change DNS to 8.8.8.8 and 8.8.4.4 in network adapter IPv4 DNS settings, then restart your computer.
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Configure DNS Settings</div>
+                        <div class="item-note">Set DNS to 8.8.8.8 and 8.8.4.4 in network adapter IPv4 settings</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Restart Computer</div>
+                        <div class="item-note">Restart after DNS configuration</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ubuntu Installation -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">🐧</div>
+                    Ubuntu 22.04 LTS Installation
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Open PowerShell as Administrator</div>
+                        <div class="item-command">wsl --install -d Ubuntu-22.04</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Start Ubuntu and Verify Installation (Can use start menu to click Ubuntu)</div>
+                        <div class="item-command">lsb_release -a</div>
+                        <div class="item-note">Ubuntu is now added to start menu (WSL)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WSL Configuration -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">⚙️</div>
+                    WSL Configuration (File creation)
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Create .wslconfig File</div>
+                        <div class="item-note">Create in C:\Users\[USERNAME]\ - Use notepad, save as ".wslconfig" with file type "all"</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Configure .wslconfig Content</div>
+                        <div class="item-command">[wsl2]
+memory=58GB     # ~90% of your RAM
+processors=16   # Match your CPU cores  
+swap=16GB</div>
+                        <div class="item-note">Modify values according to your system specs</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Verify Memory Configuration</div>
+                        <div class="item-command">free -h</div>
+                        <div class="item-note">Run in Ubuntu to check memory allocation and close Ubuntu after check</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Docker Installation -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">🐳</div>
+                    Docker Installation (AMD64 version)
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Download Docker Desktop</div>
+                        <div class="item-note">From https://www.docker.com/products/docker-desktop/</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Install Docker with WSL 2</div>
+                        <div class="item-note">Check "Use WSL 2 instead of Hyper-V" during installation. Windows will log out - log back in after installation</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Login with your email and use personal style</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Configure Docker Settings</div>
+                        <div class="item-note">Settings → General → Enable "Use WSL 2 based engine"</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Enable WSL Integration</div>
+                        <div class="item-note">Settings → Resources → WSL Integration → Enable Ubuntu-22.04</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Add User to Docker Group</div>
+                        <div class="item-command">sudo usermod -aG docker $USER</div>
+                        <div class="item-note">Close Ubuntu window, wait 10 seconds, then reopen</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Test Docker Installation</div>
+                        <div class="item-command">docker run hello-world</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">PC Restart (Optional)</div>
+                        <div class="item-note">I restarted the PC at this step. May not need to but I did</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NVIDIA Setup -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">🎮</div>
+                    NVIDIA Container Setup (In Ubuntu)
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Check NVIDIA Drivers</div>
+                        <div class="item-command">nvidia-smi</div>
+                        <div class="item-note">Update to latest drivers with Windows... Go to the site download the driver and update like normal if needed</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Add NVIDIA Repository</div>
+                        <div class="item-command">curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list && sudo apt-get update</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Install NVIDIA Container Toolkit</div>
+                        <div class="item-command">sudo apt-get install -y nvidia-container-toolkit</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Configure Container</div>
+                        <div class="item-command">sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Verify CDI Configuration</div>
+                        <div class="item-command">sudo nvidia-ctk cdi list</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Podman Installation -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">📦</div>
+                    Podman v4 Installation (In Ubuntu)
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Add Podman Repository</div>
+                        <div class="item-command">echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Add Repository Key</div>
+                        <div class="item-command">curl -fsSL https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/Release.key | sudo gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/devel_kubic_libcontainers_unstable.gpg > /dev/null</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Update and Install Podman</div>
+                        <div class="item-command">sudo apt update && sudo apt install podman</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Check Podman Version</div>
+                        <div class="item-command">podman --version</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Test GPU Access with Podman</div>
+                        <div class="item-command">podman run --rm --device nvidia.com/gpu=all --security-opt=label=disable ubuntu nvidia-smi -L</div>
+                        <div class="item-note">Look for: GPU 0: NVIDIA GeForce RTX... with UUID</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nosana Installation -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">🚀</div>
+                    Nosana Installation (In Ubuntu)
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Run Nosana Installation Script</div>
+                        <div class="item-command">bash <(wget -qO- https://nosana.com/start.sh)</div>
+                        <div class="item-note">This will test setup, generate wallet, register on grid, and start GPU host</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wallet Management -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">🔐</div>
+                    Wallet Management
+                </div>
+                
+                <div class="warning">
+                    <div class="warning-title">🔒 CRITICAL: Backup Your Keys Before Funding!</div>
+                    Always backup your private key before adding funds to your wallet.
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">View & Backup Private Key</div>
+                        <div class="item-command">sudo cat ~/.nosana/nosana_key.json</div>
+                        <div class="item-note">Copy the long string with [ ] brackets and backup securely</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Import to Phantom Wallet</div>
+                        <div class="item-note">Use "Import Private Key" in Phantom with your backed up key</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Replace Private Key (if importing existing wallet)</div>
+                        <div class="item-command">sudo nano ~/.nosana/nosana_key.json</div>
+                        <div class="item-note">Clear with Ctrl+K, paste new key with [ ] brackets, save with Ctrl+X, Y, Enter</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DNS Configuration in WSL -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">🌐</div>
+                    Configure DNS Settings in WSL (Manual DNS set)
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Create/Edit WSL Configuration File</div>
+                        <div class="item-command">sudo nano /etc/wsl.conf</div>
+                        <div class="item-note">Run in Ubuntu</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Add Network Configuration</div>
+                        <div class="item-command">[network]
+generateResolvConf = false</div>
+                        <div class="item-note">Add this to the file, save with Ctrl+X, Y, Enter</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Close All WSL Terminals</div>
+                        <div class="item-note">Close all WSL terminals/sessions before shutdown</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Shutdown WSL</div>
+                        <div class="item-command">wsl --shutdown</div>
+                        <div class="item-note">Run in Windows Command Prompt or PowerShell as Administrator</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Open WSL Terminal Again</div>
+                        <div class="item-note">Start Ubuntu after WSL shutdown</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Configure DNS Servers</div>
+                        <div class="item-command">sudo nano /etc/resolv.conf</div>
+                        <div class="item-note">Run in Ubuntu</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Add DNS Nameservers</div>
+                        <div class="item-command">nameserver 8.8.8.8
+nameserver 8.8.4.4</div>
+                        <div class="item-note">Add these lines to the file, save with Ctrl+X, Y, Enter</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SSH Setup -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">🔐</div>
+                    SSH Setup (Windows)
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Install OpenSSH Server (Nosana Node but use PowerShell)</div>
+                        <div class="item-command">Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0</div>
+                        <div class="item-note">Run in Administrator PowerShell on Windows</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Start SSH Service (Nosana Node but use PowerShell)</div>
+                        <div class="item-command">Start-Service sshd</div>
+                        <div class="item-note">Start the SSH daemon service</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Verify SSH Service Status (Nosana Node but use PowerShell)</div>
+                        <div class="item-command">Get-Service sshd</div>
+                        <div class="item-note">Should show "Running" status</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Set SSH to Auto-Start (Nosana Node but use PowerShell)</div>
+                        <div class="item-command">Set-Service -Name sshd -StartupType 'Automatic'</div>
+                        <div class="item-note">SSH service will start automatically on boot</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Check Firewall Rule (Nosana Node but use PowerShell)</div>
+                        <div class="item-command">Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP"</div>
+                        <div class="item-note">Verify SSH firewall rule is enabled</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Check Current Username (Nosana Node but use PowerShell)</div>
+                        <div class="item-command">whoami</div>
+                        <div class="item-note">Copy your username. It will look like "desktop-slnkd2r\nosananode" (or however you named your Windows)</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Check IP Address (Nosana Node but use PowerShell)</div>
+                        <div class="item-command">ipconfig</div>
+                        <div class="item-note">Copy the IPv4 address from the output</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Set User Password (Nosana Node but use PowerShell)</div>
+                        <div class="item-command-no-copy">net user "username" *</div>
+                        <div class="item-note">Replace "username" with your actual username (e.g., net user "nosananode" *). Keep the quotation marks. Password won't be visible while typing</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Test SSH Connection (From the Monitor pc in CMD)</div>
+                        <div class="item-command">ssh "NosanaNode1@110.0.0.299"</div>
+                        <div class="item-note">Test from another machine. Type "yes" to accept host key, then enter password.
+*Note: ensure to replace your username and IP address</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CMD Monitor SSH Connection -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">💻</div>
+                    Create a .bat file to SSH into your Nosana node with just a double click from the PC you wish to monitor with.
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Create Monitoring .bat File</div>
+                        <div class="item-note">Create a new text file and save it as "monitor_nosana.bat" (change file type to "All Files")</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Add Batch Script Content (Example)</div>
+                        <div class="item-command">@echo off
+title Nosana1 3080 Loc 1
+echo Connecting to Nosana1 3080 Loc 1...
+echo Server: NosanaNode1@110.0.0.299
+echo.
+echo When prompted, enter password: 1234qwer
+echo.
+ssh "NosanaNode1@110.0.0.299" "docker logs -f nosana-node"
+pause</div>
+                        <div class="item-note">Copy this content into your .bat file. Replace the username, IP address, and password with your actual SSH credentials. Keep the quotation marks that you see in the example they are needed</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Save and Test .bat File</div>
+                        <div class="item-note">Save the file and double-click to run. It will connect via SSH and show live Nosana node logs</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auto Script DNS Configuration -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">⚡</div>
+                    Auto Script to set DNS in WSL (Ubuntu)
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Run Automated DNS Configuration Script</div>
+                        <div class="item-command">wget -O dnsconfig.sh https://raw.githubusercontent.com/MachoDrone/MDbiginstaller/refs/heads/main/dnsconfig.sh && chmod +x dnsconfig.sh && sudo bash ./dnsconfig.sh && rm dnsconfig.sh</div>
+                        <div class="item-note">This script automatically configures DNS settings in WSL Ubuntu</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Minimum System Requirements Section -->
+    <div class="promotion-section">
+        <div class="promotion-header">
+            <h2>💻 Minimum System Requirements</h2>
+            <p>The minimum system requirements that your node needs to cover</p>
+        </div>
+        
+        <div class="requirements-grid">
+            <div class="requirement-card availability">
+                <div class="card-header">
+                    <span class="requirement-icon">🧠</span>
+                    <h3>RAM Requirements</h3>
+                </div>
+                <div class="card-description">System RAM should equal GPU VRAM + OS requirements</div>
+                <div class="requirement-specs">
+                    <div class="spec-item">
+                        <span class="spec-label">24GB VRAM GPU:</span>
+                        <span class="spec-value">32GB+ RAM</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">32GB VRAM GPU:</span>
+                        <span class="spec-value">40GB+ RAM</span>
+                    </div>
+                </div>
+                <div class="card-description" style="margin-top: 10px; color: #e74c3c; font-weight: 500;">
+                    *WSL uses ~50% of system RAM, so allocate accordingly
+                </div>
+            </div>
+            
+            <div class="requirement-card bandwidth">
+                <div class="card-header">
+                    <span class="requirement-icon">💾</span>
+                    <h3>Storage (Under Development)</h3>
+                </div>
+                <div class="requirement-specs">
+                    <div class="spec-item">
+                        <span class="spec-label">Up to 24GB VRAM:</span>
+                        <span class="spec-value">250GB+ free</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Up to 48GB VRAM:</span>
+                        <span class="spec-value">500GB+ free</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Recommended:</span>
+                        <span class="spec-value">NVMe SSD</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="requirement-card performance">
+                <div class="card-header">
+                    <span class="requirement-icon">🌐</span>
+                    <h3>Internet Connectivity</h3>
+                </div>
+                <div class="requirement-specs">
+                    <div class="spec-item">
+                        <span class="spec-label">Download:</span>
+                        <span class="spec-value">≥100 Mbps</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Upload:</span>
+                        <span class="spec-value">≥50 Mbps</span>
+                    </div>
+                </div>
+                <div class="card-description">Minimum required for stable operation</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Promotion Requirements Section -->
+    <div class="promotion-section">
+        <div class="promotion-header">
+            <h2>📊 Nosana Node Promotion Requirements</h2>
+            <p>Monitor your performance to qualify for <strong>Premium Markets</strong></p>
+            <a href="https://dashboard.nosana.com/explorer" target="_blank" class="dashboard-link">🔗 Open Nosana Dashboard</a>
+        </div>
+        
+        <div class="requirements-grid">
+            <div class="requirement-card availability">
+                <div class="card-header">
+                    <span class="requirement-icon">🟢</span>
+                    <h3>Availability</h3>
+                </div>
+                <div class="requirement-value">≥85%</div>
+                <div class="card-description">Your node must maintain at least 85% uptime</div>
+                <a href="https://i.imgur.com/YCqaPZU.png" target="_blank" class="example-link">View Example →</a>
+            </div>
+            
+            <div class="requirement-card bandwidth">
+                <div class="card-header">
+                    <span class="requirement-icon">🌐</span>
+                    <h3>Internet Speed</h3>
+                </div>
+                <div class="requirement-specs">
+                    <div class="spec-item">
+                        <span class="spec-label">Download:</span>
+                        <span class="spec-value">≥100 Mbps</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Upload:</span>
+                        <span class="spec-value">≥50 Mbps</span>
+                    </div>
+                </div>
+                <a href="https://i.imgur.com/O84tXcX.png" target="_blank" class="example-link">View Example →</a>
+            </div>
+            
+            <div class="requirement-card performance">
+                <div class="card-header">
+                    <span class="requirement-icon">🤖</span>
+                    <h3>GPU Performance</h3>
+                </div>
+                <div class="requirement-value">Above Average</div>
+                <div class="card-description">LLM & Image generation must exceed average benchmarks</div>
+                <a href="https://i.imgur.com/HnYcULm.png" target="_blank" class="example-link">Poor Performance Example →</a>
+            </div>
+        </div>
+        
+        <div class="troubleshooting-card">
+            <div class="card-header">
+                <span class="requirement-icon">⚠️</span>
+                <h3>Common Performance Issues</h3>
+            </div>
+            <div class="issue-list">
+                <div class="issue-item">• Underclocked or power-limited GPU</div>
+                <div class="issue-item">• Insufficient hardware resources</div>
+                <div class="issue-item">• Background GPU usage</div>
+            </div>
+            <a href="https://i.imgur.com/56pSbWb.png" target="_blank" class="example-link">Performance Warning Example →</a>
+        </div>
+        
+
+        
+        <div class="community-markets-info">
+            <div class="info-header">🚨 Community Markets Overview</div>
+            <div class="info-content">
+                <p><strong>Community Markets are temporary</strong> - designed to verify your host's capabilities before promotion to Premium Markets.</p>
+                <div class="info-points">
+                    <div class="info-point">• Only benchmark and anti-spoof jobs available</div>
+                    <div class="info-point">• High-performing hosts advance to Premium Markets</div>
+                    <div class="info-point">• Inactive/underperforming hosts are removed</div>
+                    <div class="info-point">• Job availability decreases as more hosts join</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support Section -->
+    <div class="promotion-section">
+        <div class="promotion-header">
+            <h2>💬 Need Help?</h2>
+            <p>Having trouble with your setup? Get community support!</p>
+        </div>
+        
+        <div class="community-markets-info">
+            <div class="info-header">🤝 Community Support</div>
+            <div class="info-content">
+                <p>If you have ran into any issues click the discord invite up top and scroll down to <strong>host-chat</strong> and ask around, please be respectful and patient as there might not be anyone in the channel at the time</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Donation Section -->
+    <div class="promotion-section">
+        <div class="promotion-header" style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);">
+            <h2>💝 Support This Guide</h2>
+            <p>If you found this guide helpful please feel free to donate - you absolutely are not required to donate!</p>
+        </div>
+        
+        <div class="community-markets-info" style="background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); margin: 0 30px 0 30px;">
+            <div class="info-header">🙏 Solana Donation Address</div>
+            <div class="info-content">
+                <p style="margin-bottom: 10px; font-weight: 500;">Solana (SOL) Address:</p>
+                <div class="item-command" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; text-align: center; font-family: monospace;">7qKvchinphKPA51EWJVykg32Yf744vkcAY8Vjy9ZMt6h</div>
+                <p style="margin-top: 15px; font-weight: 500;">If people wish to view the dashboard:</p>
+                <a href="https://dashboard.nosana.com/host/7qKvchinphKPA51EWJVykg32Yf744vkcAY8Vjy9ZMt6h" target="_blank" class="dashboard-link" style="background: rgba(255,255,255,0.3); border: 2px solid rgba(255,255,255,0.5); margin-top: 10px;">📊 View Host Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Store checklist state in memory instead of localStorage since localStorage is not available
+        var checkedItems = [];
+
+        function copyToClipboard(button, text) {
+            navigator.clipboard.writeText(text).then(function() {
+                var originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function() {
+                var textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                var originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function addCopyButtons() {
+            var commandBlocks = document.querySelectorAll('.item-command');
+            commandBlocks.forEach(function(block) {
+                var commandText = block.textContent.trim();
+                
+                var copyBtn = document.createElement('button');
+                copyBtn.textContent = 'Copy';
+                copyBtn.className = 'copy-btn';
+                copyBtn.onclick = function() {
+                    copyToClipboard(copyBtn, commandText);
+                };
+                block.appendChild(copyBtn);
+            });
+        }
+
+        window.toggleItem = function(checkbox) {
+            var index = Array.from(document.querySelectorAll('.checkbox')).indexOf(checkbox);
+            
+            if (checkbox.classList.contains('checked')) {
+                checkbox.classList.remove('checked');
+                checkbox.innerHTML = '';
+                checkbox.parentElement.classList.remove('completed');
+                checkedItems = checkedItems.filter(function(item) { return item !== index; });
+            } else {
+                checkbox.classList.add('checked');
+                checkbox.innerHTML = '✓';
+                checkbox.parentElement.classList.add('completed');
+                checkedItems.push(index);
+            }
+        };
+
+        function initializeChecklist() {
+            var checkboxes = document.querySelectorAll('.checkbox');
+            
+            checkboxes.forEach(function(checkbox, index) {
+                if (checkedItems.includes(index)) {
+                    checkbox.classList.add('checked');
+                    checkbox.innerHTML = '✓';
+                    var parentItem = checkbox.closest('.checklist-item');
+                    if (parentItem) {
+                        parentItem.classList.add('completed');
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeChecklist();
+            addCopyButtons();
+        });
+    </script>
+</body>
+</html>
+                
