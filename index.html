@@ -806,6 +806,65 @@ swap=16GB</div>
                 </div>
             </div>
 
+            <!-- SSH Setup in Ubuntu -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">🐧</div>
+                    Enabling SSH within Nosana node (The Ubuntu server)
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Get Ubuntu Username</div>
+                        <div class="item-command">whoami</div>
+                        <div class="item-note">Write this down for later</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Find Ubuntu IP Address</div>
+                        <div class="item-command">hostname -I</div>
+                        <div class="item-note">Write this down for later</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Update Ubuntu Packages</div>
+                        <div class="item-command">sudo apt update</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Install SSH Server</div>
+                        <div class="item-command">sudo apt install openssh-server</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Allow SSH Through Firewall</div>
+                        <div class="item-command">sudo ufw allow ssh</div>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checkbox" onclick="toggleItem(this)"></div>
+                    <div class="item-content">
+                        <div class="item-title">Test SSH Connection from CMD</div>
+                        <div class="item-command">ssh nosananode1@103.11.15.299</div>
+                        <div class="item-note">Open a CMD window and replace with your actual username and IP address. Type "yes" for fingerprint when prompted</div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Nosana Installation -->
             <div class="section">
                 <div class="section-title">
