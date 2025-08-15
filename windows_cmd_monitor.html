@@ -206,7 +206,31 @@
             background: #00ff88;
             color: #000;
         }
+	.image-container {
+   	    text-align: center;
+   	    margin: 20px 0;
+}
 
+	.example-image {
+   	    max-width: 100%;
+    	    height: auto;
+    	    border: 2px solid #00ff88;
+   	    border-radius: 10px;
+   	    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.2);
+ 	    transition: transform 0.3s ease;
+}
+
+	.example-image:hover {
+           transform: scale(1.02);
+  	   box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+}
+
+.image-caption {
+    color: #888;
+    font-style: italic;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
         .warning {
             background: rgba(255, 193, 7, 0.1);
             border: 1px solid rgba(255, 193, 7, 0.3);
@@ -454,6 +478,17 @@ pause`)">Copy</button>
                 <div class="step-description">• SSH password prompt</div>
                 <div class="step-description">• Live Docker logs streaming from your Nosana node</div>
                 <div class="warning">Make sure SSH is set up on your Nosana node first (see Windows SSH guide)</div>
+		<div class="images-grid">
+  
+<div class="image-container">
+    <img src="C:\Users\bottom3\Desktop\Nosana MONITOR\cmd_examples.png" alt="Nosana Monitor Example 1" class="example-image">
+    <p class="image-caption">Batch file startup and countdown</p>
+</div>
+
+<div class="image-container">
+    <img src="images/example-monitor-2.png" alt="Nosana Monitor Example 2" class="example-image">
+    <p class="image-caption">Live Docker logs streaming</p>
+</div>
             </div>
         </div>
 
