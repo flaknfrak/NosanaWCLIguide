@@ -77,6 +77,9 @@
             border: 1px solid rgba(0, 255, 136, 0.1);
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
+            min-height: 200px; /* Ensure minimum height for consistency */
+            display: flex;
+            flex-direction: column;
         }
 
         .section:hover {
@@ -89,6 +92,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 25px;
+            flex-shrink: 0; /* Prevent shrinking */
         }
 
         .section-icon {
@@ -115,6 +119,9 @@
             margin-bottom: 20px;
             border-left: 4px solid #333;
             transition: all 0.3s ease;
+            flex-grow: 1; /* Allow steps to fill available space */
+            display: flex;
+            flex-direction: column;
         }
 
         .step.completed {
@@ -126,6 +133,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 15px;
+            flex-shrink: 0; /* Prevent shrinking */
         }
 
         .step-checkbox {
@@ -139,6 +147,7 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            flex-shrink: 0;
         }
 
         .step-checkbox.checked {
@@ -163,27 +172,63 @@
             color: #ccc;
             margin-bottom: 15px;
             margin-left: 37px;
+            flex-grow: 1; /* Allow description to grow */
         }
+
+        /* Image container fixes */
         .image-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+            width: 100%;
+            max-width: 800px; /* Limit max width on desktop */
+            margin: 15px auto;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-.example-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
+        .example-image {
+            width: 100%;
+            max-height: 400px; /* Limit image height */
+            object-fit: contain; /* Maintain aspect ratio */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.2); /* Subtle background */
+        }
 
-/* Adjust container padding for mobile */
-@media (max-width: 768px) {
-    .image-container {
-        padding: 0 10px;
-    }
-}
+        .image-caption {
+            color: #888;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* Adjust container padding for mobile */
+        @media (max-width: 768px) {
+            .image-container {
+                padding: 0 10px;
+                max-width: 100%;
+            }
+            
+            .example-image {
+                max-height: 300px; /* Smaller max height on mobile */
+            }
+            
+            .section {
+                min-height: auto; /* Remove min-height on mobile */
+            }
+        }
+
+        /* Desktop-specific adjustments */
+        @media (min-width: 769px) {
+            .section {
+                min-height: 250px; /* Consistent height on desktop */
+            }
+            
+            .image-container {
+                max-width: 600px; /* More constrained on desktop */
+            }
+        }
 
         .warning {
             background: rgba(255, 193, 7, 0.1);
@@ -461,7 +506,7 @@
         <img src="images/Internet speeds.png" alt="Bandwidth Performance Screenshot" class="example-image">
         <p class="image-caption">Bandwidth Performance Screenshot</p>
     </div>
-</div>
+
             <div class="step" data-step="check-bandwidth">
                 <div class="step-header">
                     <div class="step-checkbox"></div>
