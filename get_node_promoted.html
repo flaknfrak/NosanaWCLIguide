@@ -164,6 +164,26 @@
             margin-bottom: 15px;
             margin-left: 37px;
         }
+        .image-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.example-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Adjust container padding for mobile */
+@media (max-width: 768px) {
+    .image-container {
+        padding: 0 10px;
+    }
+}
 
         .warning {
             background: rgba(255, 193, 7, 0.1);
