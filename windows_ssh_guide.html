@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows SSH Setup - Nosana Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ff88, #00cc6a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #00ff88;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #333, #555);
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+        }
+
+        .step {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .step.completed {
+            border-left-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .step-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #666;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .step-checkbox.checked {
+            background: #00ff88;
+            border-color: #00ff88;
+        }
+
+        .step-checkbox.checked::after {
+            content: '✓';
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .step-number {
+            color: #00ff88;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+
+        .step-title {
+            font-weight: bold;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .step-description {
+            color: #ccc;
+            margin-bottom: 15px;
+            margin-left: 37px;
+            font-style: italic;
+        }
+
+        .code-block {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            color: #00ff88;
+            margin: 10px 0 10px 37px;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .code-block::before {
+            content: 'PS > ';
+            color: #666;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #00ff88;
+            color: #000;
+        }
+
+        .warning {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0 10px 37px;
+            color: #ffc107;
+        }
+
+        .warning::before {
+            content: '⚠️ ';
+            margin-right: 10px;
+        }
+
+        .important {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0 10px 37px;
+            color: #dc3545;
+        }
+
+        .important::before {
+            content: '🔥 ';
+            margin-right: 10px;
+        }
+
+        .success {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0 10px 37px;
+            color: #00ff88;
+        }
+
+        .success::before {
+            content: '✅ ';
+            margin-right: 10px;
+        }
+
+        .info {
+            background: rgba(13, 202, 240, 0.1);
+            border: 1px solid rgba(13, 202, 240, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0 10px 37px;
+            color: #0dcaf0;
+        }
+
+        .info::before {
+            content: 'ℹ️ ';
+            margin-right: 10px;
+        }
+
+        .reset-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step {
+            animation: slideUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">NOSANA</div>
+            <div class="subtitle">Windows SSH Setup Guide</div>
+            <div class="description">Configure SSH access to your Windows Nosana node for remote management</div>
+            
+            <a href="index.html" class="back-btn">
+                ← Back to Main Guide
+            </a>
+        </div>
+
+        <div class="section">
+            <div class="important">All commands must be run in PowerShell as Administrator on your Windows Nosana Node machine</div>
+            
+            <div class="step" data-step="install-openssh">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">1.</span>
+                    <div class="step-title">Install OpenSSH Server</div>
+                </div>
+                <div class="step-description">Run in Administrator PowerShell on Windows</div>
+                <div class="code-block">
+                    Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+                    <button class="copy-btn" onclick="copyToClipboard('Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0')">Copy</button>
+                </div>
+            </div>
+
+            <div class="step" data-step="start-ssh">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">2.</span>
+                    <div class="step-title">Start SSH Service</div>
+                </div>
+                <div class="step-description">Start the SSH daemon service</div>
+                <div class="code-block">
+                    Start-Service sshd
+                    <button class="copy-btn" onclick="copyToClipboard('Start-Service sshd')">Copy</button>
+                </div>
+            </div>
+
+            <div class="step" data-step="verify-ssh">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">3.</span>
+                    <div class="step-title">Verify SSH Service Status</div>
+                </div>
+                <div class="step-description">Should show "Running" status</div>
+                <div class="code-block">
+                    Get-Service sshd
+                    <button class="copy-btn" onclick="copyToClipboard('Get-Service sshd')">Copy</button>
+                </div>
+                <div class="success">Expected output: Status should show "Running"</div>
+            </div>
+
+            <div class="step" data-step="auto-start">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">4.</span>
+                    <div class="step-title">Set SSH to Auto-Start</div>
+                </div>
+                <div class="step-description">SSH service will start automatically on boot</div>
+                <div class="code-block">
+                    Set-Service -Name sshd -StartupType 'Automatic'
+                    <button class="copy-btn" onclick="copyToClipboard('Set-Service -Name sshd -StartupType \'Automatic\'')">Copy</button>
+                </div>
+            </div>
+
+            <div class="step" data-step="check-firewall">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">5.</span>
+                    <div class="step-title">Check Firewall Rule</div>
+                </div>
+                <div class="step-description">Verify SSH firewall rule is enabled</div>
+                <div class="code-block">
+                    Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP"
+                    <button class="copy-btn" onclick="copyToClipboard('Get-NetFirewallRule -Name \"OpenSSH-Server-In-TCP\"')">Copy</button>
+                </div>
+                <div class="info">Rule should be enabled. If not found, Windows will create it automatically.</div>
+            </div>
+
+            <div class="step" data-step="check-username">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">6.</span>
+                    <div class="step-title">Check Current Username</div>
+                </div>
+                <div class="step-description">Copy your username. It will look like "desktop-slnkd2r\nosananode"</div>
+                <div class="code-block">
+                    whoami
+                    <button class="copy-btn" onclick="copyToClipboard('whoami')">Copy</button>
+                </div>
+                <div class="warning">Save this username - you'll need it for SSH connections!</div>
+            </div>
+
+            <div class="step" data-step="check-ip">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">7.</span>
+                    <div class="step-title">Check IP Address</div>
+                </div>
+                <div class="step-description">Copy the IPv4 address from the output</div>
+                <div class="code-block">
+                    ipconfig
+                    <button class="copy-btn" onclick="copyToClipboard('ipconfig')">Copy</button>
+                </div>
+                <div class="warning">Look for "IPv4 Address" under your active network adapter. Save this IP address!</div>
+            </div>
+
+            <div class="step" data-step="set-password">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">8.</span>
+                    <div class="step-title">Set User Password</div>
+                </div>
+                <div class="step-description">Replace "username" with your actual username (e.g., net user "nosananode" *). Keep the quotation marks.</div>
+                <div class="code-block">
+                    net user "username" *
+                    <button class="copy-btn" onclick="copyToClipboard('net user \"username\" *')">Copy</button>
+                </div>
+                <div class="important">Password won't be visible while typing. Remember this password for SSH access!</div>
+            </div>
+
+            <div class="step" data-step="test-connection">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">9.</span>
+                    <div class="step-title">Test SSH Connection</div>
+                </div>
+                <div class="step-description">Test from another machine. Type "yes" to accept host key, then enter password.</div>
+                <div class="code-block">
+                    ssh "NosanaNode1@110.0.0.299"
+                    <button class="copy-btn" onclick="copyToClipboard('ssh \"NosanaNode1@110.0.0.299\"')">Copy</button>
+                </div>
+                <div class="warning">Replace "NosanaNode1" with your username and "110.0.0.299" with your actual IP address!</div>
+                <div class="success">If successful, you'll see a command prompt from your Windows machine!</div>
+            </div>
+        </div>
+
+        <button class="reset-btn" onclick="resetProgress()">Reset Progress</button>
+    </div>
+
+    <script>
+        // Load saved progress from localStorage
+        function loadProgress() {
+            const savedProgress = JSON.parse(localStorage.getItem('windowsSshProgress') || '{}');
+            Object.keys(savedProgress).forEach(stepId => {
+                if (savedProgress[stepId]) {
+                    const step = document.querySelector(`[data-step="${stepId}"]`);
+                    if (step) {
+                        const checkbox = step.querySelector('.step-checkbox');
+                        checkbox.classList.add('checked');
+                        step.classList.add('completed');
+                    }
+                }
+            });
+        }
+
+        // Save progress to localStorage
+        function saveProgress() {
+            const progress = {};
+            document.querySelectorAll('.step').forEach(step => {
+                const stepId = step.dataset.step;
+                const isCompleted = step.classList.contains('completed');
+                progress[stepId] = isCompleted;
+            });
+            localStorage.setItem('windowsSshProgress', JSON.stringify(progress));
+        }
+
+        // Handle step completion
+        document.querySelectorAll('.step-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', () => {
+                const step = checkbox.closest('.step');
+                const isCompleted = step.classList.contains('completed');
+                
+                if (isCompleted) {
+                    checkbox.classList.remove('checked');
+                    step.classList.remove('completed');
+                } else {
+                    checkbox.classList.add('checked');
+                    step.classList.add('completed');
+                    
+                    // Add a nice animation
+                    step.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        step.style.transform = 'scale(1)';
+                    }, 200);
+                }
+                
+                saveProgress();
+            });
+        });
+
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show feedback
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = '#00ff88';
+                button.style.color = '#000';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '#333';
+                    button.style.color = '#fff';
+                }, 1000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+
+        // Reset all progress
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                localStorage.removeItem('windowsSshProgress');
+                
+                // Remove all completed states
+                document.querySelectorAll('.step-checkbox.checked').forEach(checkbox => {
+                    checkbox.classList.remove('checked');
+                });
+                
+                document.querySelectorAll('.step.completed').forEach(step => {
+                    step.classList.remove('completed');
+                });
+            }
+        }
+
+        // Animate steps on load
+        document.querySelectorAll('.step').forEach((step, index) => {
+            step.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+                e.preventDefault();
+                resetProgress();
+            }
+        });
+    </script>
+</body>
+</html>
