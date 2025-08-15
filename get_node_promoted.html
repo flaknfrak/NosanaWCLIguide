@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Your Nosana Node Promoted</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ff88, #00cc6a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #666, #888);
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 102, 102, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 102, 102, 0.4);
+            background: linear-gradient(135deg, #888, #aaa);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            filter: grayscale(100%);
+            transition: all 0.3s ease;
+        }
+
+        .section.completed .section-icon {
+            filter: none;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .step {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .step.completed {
+            border-left-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .step-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #666;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .step-checkbox.checked {
+            background: #00ff88;
+            border-color: #00ff88;
+        }
+
+        .step-checkbox.checked::after {
+            content: '✓';
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .step-title {
+            font-weight: bold;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .step-description {
+            color: #ccc;
+            margin-bottom: 15px;
+            margin-left: 37px;
+        }
+
+        .warning {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0 10px 37px;
+            color: #ffc107;
+        }
+
+        .warning::before {
+            content: '⚠️ ';
+            margin-right: 10px;
+        }
+
+        .important {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0 10px 37px;
+            color: #dc3545;
+        }
+
+        .important::before {
+            content: '🔥 ';
+            margin-right: 10px;
+        }
+
+        .success {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0 10px 37px;
+            color: #00ff88;
+        }
+
+        .success::before {
+            content: '✅ ';
+            margin-right: 10px;
+        }
+
+        .info {
+            background: rgba(54, 162, 235, 0.1);
+            border: 1px solid rgba(54, 162, 235, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0 10px 37px;
+            color: #36a2eb;
+        }
+
+        .info::before {
+            content: 'ℹ️ ';
+            margin-right: 10px;
+        }
+
+        .reset-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        .step-number {
+            color: #00ff88;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+
+        .dashboard-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            color: #000;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 10px 0;
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .dashboard-link:hover {
+            background: linear-gradient(135deg, #00cc6a, #00ff88);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ff88;
+            display: block;
+        }
+
+        .metric-label {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .image-placeholder {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0 10px 37px;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        .requirements-list {
+            margin: 10px 0 10px 37px;
+            color: #ccc;
+        }
+
+        .requirements-list ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .requirements-list li {
+            margin: 8px 0;
+            position: relative;
+        }
+
+        .requirements-list li::before {
+            content: '•';
+            color: #00ff88;
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: slideUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">NOSANA</div>
+            <div class="subtitle">📊 How to Monitor Your Nosana Node Performance</div>
+            
+            <a href="index.html" class="back-btn">
+                <span>←</span>
+                Back to Installation Guide
+            </a>
+        </div>
+
+        <!-- Overview Section -->
+        <div class="section" data-section="overview">
+            <div class="section-header">
+                <div class="section-icon">📊</div>
+                <div class="section-title">Performance Monitoring Overview</div>
+            </div>
+            
+            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
+                To ensure your node meets requirements and qualifies for <strong>Premium Markets</strong>, track these key metrics:
+            </div>
+
+            <a href="https://dashboard.nosana.com/explorer" class="dashboard-link" target="_blank">
+                <span>🔗</span>
+                Nosana Dashboard
+            </a>
+        </div>
+
+        <!-- Step-by-Step Check Section -->
+        <div class="section" data-section="stepcheck">
+            <div class="section-header">
+                <div class="section-icon">🔍</div>
+                <div class="section-title">Step-by-Step Check</div>
+            </div>
+
+            <div class="step" data-step="dashboard-search">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">1.</span>
+                    <div class="step-title">Search for your host on the dashboard</div>
+                </div>
+                <div class="step-description">Navigate to the Nosana Dashboard and locate your specific node</div>
+            </div>
+
+            <div class="step" data-step="review-metrics">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">2.</span>
+                    <div class="step-title">Review these critical metrics:</div>
+                </div>
+                <div class="step-description">Monitor all key performance indicators for promotion eligibility</div>
+            </div>
+        </div>
+
+        <!-- Availability Section -->
+        <div class="section" data-section="availability">
+            <div class="section-header">
+                <div class="section-icon">🟢</div>
+                <div class="section-title">Availability</div>
+            </div>
+
+            <div class="image-placeholder">
+                <p>📊 Availability Dashboard Screenshot</p>
+                <p><small>Reference: https://i.imgur.com/YCqaPZU.png</small></p>
+            </div>
+
+            <div class="step" data-step="check-availability">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">3.</span>
+                    <div class="step-title">Check Availability Requirements</div>
+                </div>
+                <div class="step-description"><strong>Minimum Requirement:</strong> Availability needs to <strong>≥85%</strong></div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <span class="metric-value">≥85%</span>
+                        <span class="metric-label">Minimum Availability Required</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Internet Bandwidth Section -->
+        <div class="section" data-section="bandwidth">
+            <div class="section-header">
+                <div class="section-icon">🌐</div>
+                <div class="section-title">Internet Bandwidth</div>
+            </div>
+
+            <div class="image-placeholder">
+                <p>📈 Bandwidth Performance Screenshot</p>
+                <p><small>Reference: https://i.imgur.com/O84tXcX.png</small></p>
+            </div>
+
+            <div class="step" data-step="check-bandwidth">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">4.</span>
+                    <div class="step-title">Verify Bandwidth Requirements</div>
+                </div>
+                <div class="step-description"><strong>Minimum Requirements:</strong></div>
+                
+                <div class="requirements-list">
+                    <ul>
+                        <li>Download: <strong>≥100 Mbits/sec</strong></li>
+                        <li>Upload: <strong>≥50 Mbits/sec</strong></li>
+                    </ul>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <span class="metric-value">≥100</span>
+                        <span class="metric-label">Download Mbps Required</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">≥50</span>
+                        <span class="metric-label">Upload Mbps Required</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LLM/Image Generation Performance Section -->
+        <div class="section" data-section="performance">
+            <div class="section-header">
+                <div class="section-icon">🤖</div>
+                <div class="section-title">LLM/Image Generation Performance</div>
+            </div>
+
+            <div class="step" data-step="check-performance">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">5.</span>
+                    <div class="step-title">Monitor AI Performance Metrics</div>
+                </div>
+                <div class="step-description">Review your node's performance compared to network averages</div>
+                
+                <div class="warning">Example of poor performance (below average):</div>
+                
+                <div class="image-placeholder">
+                    <p>⚠️ Poor Performance Example Screenshot</p>
+                    <p><small>Reference: https://i.imgur.com/HnYcULm.png</small></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Warnings Section -->
+        <div class="section" data-section="warnings">
+            <div class="section-header">
+                <div class="section-icon">⚠️</div>
+                <div class="section-title">Performance Warnings</div>
+            </div>
+
+            <div class="image-placeholder">
+                <p>🚨 Performance Warning Screenshot</p>
+                <p><small>Reference: https://i.imgur.com/56pSbWb.png</small></p>
+            </div>
+
+            <div class="step" data-step="troubleshoot-issues">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">6.</span>
+                    <div class="step-title">Identify and Fix Common Issues</div>
+                </div>
+                <div class="step-description"><strong>🔧 Possible Issues:</strong></div>
+                
+                <div class="requirements-list">
+                    <ul>
+                        <li>Underclocked/power-limited GPU</li>
+                        <li>Insufficient hardware resources</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Reminders Section -->
+        <div class="section" data-section="reminders">
+            <div class="section-header">
+                <div class="section-icon">💡</div>
+                <div class="section-title">Key Reminders</div>
+            </div>
+
+            <div class="step" data-step="success-factors">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">7.</span>
+                    <div class="step-title">Success Factors</div>
+                </div>
+                <div class="step-description">Essential requirements for promotion success</div>
+                
+                <div class="success">Success Requirements:<br>
+                ✅ Meet ALL minimum requirements<br>
+                ✅ Exceed averages for better promotion chances</div>
+            </div>
+
+            <div class="step" data-step="promotion-blockers">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">8.</span>
+                    <div class="step-title">Promotion Blockers</div>
+                </div>
+                <div class="step-description">Common issues that prevent promotion</div>
+                
+                <div class="important">Promotion Blockers:<br>
+                ❌ Chronic underperformance = No premium promotion<br>
+                ❌ GPU being utilised in the background will hurt chances of promotion</div>
+            </div>
+        </div>
+
+        <!-- Community Markets Section -->
+        <div class="section" data-section="community-markets">
+            <div class="section-header">
+                <div class="section-icon">🚨</div>
+                <div class="section-title">Important Note on Community Markets</div>
+            </div>
+
+            <div class="step" data-step="understand-community-markets">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">9.</span>
+                    <div class="step-title">Understanding Community Markets</div>
+                </div>
+                <div class="step-description">Community Markets are a temporary place for hosts, designed to:</div>
+                
+                <div class="requirements-list">
+                    <ul>
+                        <li>Verify your host's capability to handle client workloads</li>
+                        <li>Allow only high-performing hosts to advance to Premium Markets</li>
+                        <li>Provide only benchmark and anti-spoof jobs (no standard workloads)</li>
+                    </ul>
+                </div>
+
+                <div class="warning">Warning:<br>
+                • Inactive or underperforming hosts will be removed and must reapply<br>
+                • Job availability decreases as more hosts join</div>
+            </div>
+        </div>
+
+        <button class="reset-btn" onclick="resetProgress()">Reset Progress</button>
+    </div>
+
+    <script>
+        // Load saved progress from localStorage
+        function loadProgress() {
+            const savedProgress = JSON.parse(localStorage.getItem('nosanaPromotionProgress') || '{}');
+            Object.keys(savedProgress).forEach(stepId => {
+                if (savedProgress[stepId]) {
+                    const step = document.querySelector(`[data-step="${stepId}"]`);
+                    if (step) {
+                        const checkbox = step.querySelector('.step-checkbox');
+                        checkbox.classList.add('checked');
+                        step.classList.add('completed');
+                    }
+                }
+            });
+            updateSectionIcons();
+        }
+
+        // Save progress to localStorage
+        function saveProgress() {
+            const progress = {};
+            document.querySelectorAll('.step').forEach(step => {
+                const stepId = step.dataset.step;
+                const isCompleted = step.classList.contains('completed');
+                progress[stepId] = isCompleted;
+            });
+            localStorage.setItem('nosanaPromotionProgress', JSON.stringify(progress));
+        }
+
+        // Handle step completion
+        document.querySelectorAll('.step-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', () => {
+                const step = checkbox.closest('.step');
+                const isCompleted = step.classList.contains('completed');
+                
+                if (isCompleted) {
+                    checkbox.classList.remove('checked');
+                    step.classList.remove('completed');
+                } else {
+                    checkbox.classList.add('checked');
+                    step.classList.add('completed');
+                    
+                    // Add a nice animation
+                    step.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        step.style.transform = 'scale(1)';
+                    }, 200);
+                }
+                
+                updateSectionIcons();
+                saveProgress();
+            });
+        });
+
+        // Update section icons based on completion
+        function updateSectionIcons() {
+            document.querySelectorAll('.section').forEach(section => {
+                const steps = section.querySelectorAll('.step');
+                const completedSteps = section.querySelectorAll('.step.completed');
+                const isAllCompleted = steps.length > 0 && steps.length === completedSteps.length;
+                
+                if (isAllCompleted) {
+                    section.classList.add('completed');
+                } else {
+                    section.classList.remove('completed');
+                }
+            });
+        }
+
+        // Reset all progress
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                localStorage.removeItem('nosanaPromotionProgress');
+                
+                // Remove all completed states
+                document.querySelectorAll('.step-checkbox.checked').forEach(checkbox => {
+                    checkbox.classList.remove('checked');
+                });
+                
+                document.querySelectorAll('.step.completed').forEach(step => {
+                    step.classList.remove('completed');
+                });
+                
+                document.querySelectorAll('.section.completed').forEach(section => {
+                    section.classList.remove('completed');
+                });
+                
+                updateSectionIcons();
+            }
+        }
+
+        // Animate sections on load
+        document.querySelectorAll('.section').forEach((section, index) => {
+            section.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + R to reset (prevent default and show custom reset)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+                e.preventDefault();
+                resetProgress();
+            }
+        });
+
+        // Add progress persistence warning
+        window.addEventListener('beforeunload', (e) => {
+            const hasProgress = document.querySelectorAll('.step.completed').length > 0;
+            if (hasProgress) {
+                e.preventDefault();
+                e.returnValue = 'Your progress is automatically saved. You can safely close this page.';
+            }
+        });
+    </script>
+</body>
+</html>
