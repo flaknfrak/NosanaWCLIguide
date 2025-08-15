@@ -417,7 +417,11 @@
             <div class="subtitle">Windows CLI Node Installation Guide</div>
             
             <div class="nav-buttons">
-                <a href="windows_ssh_guide.html" class="nav-btn" id="windows-ssh-btn">
+                <a href="#" class="nav-btn" id="installation-btn">
+                    <span class="nav-btn-icon">🔧</span>
+                    Installation Guide
+                </a>
+                <a href="#" class="nav-btn" id="windows-ssh-btn">
                     <span class="nav-btn-icon">🪟</span>
                     Windows SSH
                 </a>
@@ -425,7 +429,7 @@
                     <span class="nav-btn-icon">🐧</span>
                     Ubuntu SSH
                 </a>
-                <a href="windows-cmd-monitor.html" class="nav-btn" id="windows-cmd-btn">
+                <a href="#" class="nav-btn" id="windows-cmd-btn">
                     <span class="nav-btn-icon">📊</span>
                     Windows CMD Monitor
                 </a>
@@ -440,226 +444,196 @@
         <div class="section" data-section="promotion" style="display: none;">
             <div class="section-header">
                 <div class="section-icon">🏆</div>
-                <div class="section-title">Get Your Node Promoted</div>
+                <div class="section-title">How to Monitor Your Nosana Node Performance</div>
             </div>
             
             <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
-                • Understand promotion requirements and criteria<br>
-                • Learn how to improve your node's performance<br>
-                • Connect with the Nosana community for support
+                • Monitor your node performance for Premium Market qualification<br>
+                • Track key metrics that determine promotion eligibility<br>
+                • Understand Community vs Premium Market differences
             </div>
 
-            <div class="important">Node promotion is based on performance, reliability, and community contribution. Follow these guidelines to increase your chances!</div>
+            <div class="important">To ensure your node meets requirements and qualifies for Premium Markets, track these key metrics on the Nosana Dashboard!</div>
 
-            <div class="step" data-step="understand-promotion">
+            <div class="step" data-step="dashboard-access">
                 <div class="step-header">
                     <div class="step-checkbox"></div>
                     <span class="step-number">1.</span>
-                    <div class="step-title">Understand Promotion Criteria</div>
+                    <div class="step-title">Access Nosana Dashboard</div>
                 </div>
-                <div class="step-description">Learn what makes a node eligible for promotion in the Nosana network</div>
+                <div class="step-description">Navigate to the official Nosana Explorer to monitor your node</div>
                 
-                <div class="promotion-requirements">
-                    <div class="requirement-card">
-                        <div class="requirement-title">
-                            <span>⚡</span>
-                            High Performance
-                        </div>
-                        <div class="requirement-description">
-                            Maintain consistent uptime, fast job completion times, and reliable hardware performance. Your node should consistently deliver results without errors.
-                        </div>
-                    </div>
-                    
-                    <div class="requirement-card">
-                        <div class="requirement-title">
-                            <span>🔄</span>
-                            Job Completion Rate
-                        </div>
-                        <div class="requirement-description">
-                            Successfully complete assigned jobs with minimal failures. Aim for a completion rate above 95% to demonstrate reliability.
-                        </div>
-                    </div>
-                    
-                    <div class="requirement-card">
-                        <div class="requirement-title">
-                            <span>💻</span>
-                            Hardware Requirements
-                        </div>
-                        <div class="requirement-description">
-                            Meet or exceed recommended hardware specifications. Better hardware often leads to better performance and higher promotion chances.
-                        </div>
-                    </div>
-                    
-                    <div class="requirement-card">
-                        <div class="requirement-title">
-                            <span>🌐</span>
-                            Network Stability
-                        </div>
-                        <div class="requirement-description">
-                            Maintain stable internet connection with low latency. Consistent network performance is crucial for job execution.
-                        </div>
-                    </div>
-                </div>
+                <a href="https://dashboard.nosana.com/explorer" class="discord-link" target="_blank" style="background: linear-gradient(135deg, #00ff88, #00cc6a); color: #000;">
+                    <span>🔗</span>
+                    Open Nosana Dashboard
+                </a>
+                
+                <div class="info">Search for your host address on the dashboard to review all performance metrics</div>
             </div>
 
-            <div class="step" data-step="optimize-performance">
+            <div class="step" data-step="check-availability">
                 <div class="step-header">
                     <div class="step-checkbox"></div>
                     <span class="step-number">2.</span>
-                    <div class="step-title">Optimize Node Performance</div>
+                    <div class="step-title">Check Availability Metric</div>
                 </div>
-                <div class="step-description">Implement best practices to maximize your node's performance</div>
+                <div class="step-description">Monitor your node's uptime and availability percentage</div>
                 
-                <div class="success">Performance Optimization Tips:</div>
-                <div class="info">• Keep your node running 24/7 for maximum uptime<br>
-• Monitor system resources (CPU, RAM, GPU usage)<br>
-• Ensure stable internet connection with backup options<br>
-• Keep Docker and Podman updated to latest versions<br>
-• Monitor logs for errors and address issues promptly<br>
-• Use dedicated hardware when possible (avoid shared resources)</div>
+                <div class="metrics-grid">
+                    <div class="metric-card" style="border-color: #00ff88;">
+                        <span class="metric-value">≥85%</span>
+                        <span class="metric-label">Minimum Availability Required</span>
+                    </div>
+                </div>
+                
+                <div class="success">🟢 Availability Requirements:<br>
+• Your node must maintain ≥85% availability<br>
+• Higher availability improves promotion chances<br>
+• Consistent uptime demonstrates reliability</div>
+                
+                <div class="warning">Check the availability graph on your dashboard - it should show consistent green uptime with minimal gaps</div>
             </div>
 
-            <div class="step" data-step="monitor-metrics">
+            <div class="step" data-step="check-bandwidth">
                 <div class="step-header">
                     <div class="step-checkbox"></div>
                     <span class="step-number">3.</span>
-                    <div class="step-title">Monitor Key Metrics</div>
+                    <div class="step-title">Verify Internet Bandwidth</div>
                 </div>
-                <div class="step-description">Track important performance indicators</div>
+                <div class="step-description">Ensure your connection meets minimum speed requirements</div>
                 
                 <div class="metrics-grid">
                     <div class="metric-card">
-                        <span class="metric-value">99%+</span>
-                        <span class="metric-label">Target Uptime</span>
+                        <span class="metric-value">≥100</span>
+                        <span class="metric-label">Download Mbps Required</span>
                     </div>
                     <div class="metric-card">
-                        <span class="metric-value">95%+</span>
-                        <span class="metric-label">Job Success Rate</span>
+                        <span class="metric-value">≥50</span>
+                        <span class="metric-label">Upload Mbps Required</span>
                     </div>
-                    <div class="metric-card">
-                        <span class="metric-value">&lt;30s</span>
-                        <span class="metric-label">Average Response Time</span>
-                    </div>
-                    <div class="metric-card">
-                        <span class="metric-value">0</span>
-                        <span class="metric-label">Critical Errors</span>
-                    </div>
+                </div>
+                
+                <div class="success">🌐 Internet Bandwidth Requirements:<br>
+• Download Speed: ≥100 Mbits/sec<br>
+• Upload Speed: ≥50 Mbits/sec<br>
+• Stable connection without fluctuations</div>
+                
+                <div class="info">The dashboard will show your measured bandwidth speeds. Ensure they consistently meet or exceed these minimums.</div>
+            </div>
+
+            <div class="step" data-step="check-performance">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">4.</span>
+                    <div class="step-title">Monitor LLM/Image Generation Performance</div>
+                </div>
+                <div class="step-description">Review your node's AI workload performance metrics</div>
+                
+                <div class="important">🤖 Performance Analysis:<br>
+• Compare your performance to network averages<br>
+• Look for consistent above-average results<br>
+• Avoid chronic underperformance warnings</div>
+                
+                <div class="warning">⚠️ Common Performance Issues:<br>
+• Underclocked or power-limited GPU<br>
+• Insufficient hardware resources<br>
+• GPU being utilized by other applications<br>
+• Background processes consuming resources</div>
+                
+                <div class="info">Review the performance graphs on your dashboard. Green indicators and above-average performance improve promotion chances.</div>
+            </div>
+
+            <div class="step" data-step="understand-markets">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">5.</span>
+                    <div class="step-title">Understand Community vs Premium Markets</div>
+                </div>
+                <div class="step-description">Learn the differences between market types and promotion path</div>
+                
+                <div class="warning">🚨 Important Note on Community Markets:<br>
+Community Markets are a temporary place for hosts, designed to:<br>
+• Verify your host's capability to handle client workloads<br>
+• Allow only high-performing hosts to advance to Premium Markets<br>
+• Provide only benchmark and anti-spoof jobs (no standard workloads)</div>
+                
+                <div class="important">⚠️ Community Market Warnings:<br>
+• Inactive or underperforming hosts will be removed and must reapply<br>
+• Job availability decreases as more hosts join<br>
+• This is a testing ground, not permanent placement</div>
+            </div>
+
+            <div class="step" data-step="key-reminders">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">6.</span>
+                    <div class="step-title">Key Performance Reminders</div>
+                </div>
+                <div class="step-description">Critical points to remember for promotion success</div>
+                
+                <div class="success">💡 Success Factors:<br>
+✅ Meet ALL minimum requirements consistently<br>
+✅ Exceed network averages for better promotion chances<br>
+✅ Maintain dedicated GPU usage (no background tasks)<br>
+✅ Keep node running 24/7 for optimal availability</div>
+                
+                <div class="important">❌ Promotion Blockers:<br>
+❌ Chronic underperformance = No premium promotion<br>
+❌ GPU being utilized in background applications<br>
+❌ Inconsistent availability below 85%<br>
+❌ Bandwidth speeds below minimum requirements</div>
+            </div>
+
+            <div class="step" data-step="troubleshooting-performance">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">7.</span>
+                    <div class="step-title">Troubleshoot Performance Issues</div>
+                </div>
+                <div class="step-description">Identify and resolve common performance problems</div>
+                
+                <div class="code-block">
+                    nvidia-smi
+                    <button class="copy-btn" onclick="copyToClipboard('nvidia-smi')">Copy</button>
+                </div>
+                
+                <div class="code-block">
+                    htop
+                    <button class="copy-btn" onclick="copyToClipboard('htop')">Copy</button>
                 </div>
                 
                 <div class="code-block">
                     nosana node status
                     <button class="copy-btn" onclick="copyToClipboard('nosana node status')">Copy</button>
                 </div>
-                <div class="info">Check your node status regularly to monitor performance metrics</div>
+                
+                <div class="warning">🔧 Common Performance Fixes:<br>
+• Close unnecessary applications using GPU<br>
+• Increase GPU power limit if available<br>
+• Ensure adequate cooling for sustained performance<br>
+• Check for driver updates<br>
+• Monitor and clear disk space regularly</div>
             </div>
 
             <div class="step" data-step="join-community">
                 <div class="step-header">
                     <div class="step-checkbox"></div>
-                    <span class="step-number">4.</span>
+                    <span class="step-number">8.</span>
                     <div class="step-title">Join the Nosana Community</div>
                 </div>
-                <div class="step-description">Connect with other node operators and stay updated</div>
+                <div class="step-description">Connect with other node operators for support and updates</div>
                 
                 <a href="https://discord.gg/nosana" class="discord-link" target="_blank">
                     <span>💬</span>
                     Join Nosana Discord
                 </a>
                 
-                <div class="info">Benefits of community participation:<br>
-• Get help with technical issues<br>
-• Stay updated on network changes<br>
-• Learn from experienced operators<br>
-• Participate in community discussions<br>
-• Get early access to new features</div>
-            </div>
-
-            <div class="step" data-step="maintain-wallet">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">5.</span>
-                    <div class="step-title">Maintain Wallet Balance</div>
-                </div>
-                <div class="step-description">Ensure your wallet has sufficient funds for operations</div>
-                
-                <div class="warning">Keep your wallet funded with enough SOL for transaction fees and NOS tokens for staking if required</div>
-                
-                <div class="code-block">
-                    solana balance
-                    <button class="copy-btn" onclick="copyToClipboard('solana balance')">Copy</button>
-                </div>
-            </div>
-
-            <div class="step" data-step="regular-updates">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">6.</span>
-                    <div class="step-title">Keep Software Updated</div>
-                </div>
-                <div class="step-description">Regularly update your node software and dependencies</div>
-                
-                <div class="code-block">
-                    # Update Ubuntu packages
-sudo apt update && sudo apt upgrade -y
-                    <button class="copy-btn" onclick="copyToClipboard('sudo apt update && sudo apt upgrade -y')">Copy</button>
-                </div>
-                
-                <div class="code-block">
-                    # Update Nosana node
-bash <(wget -qO- https://nosana.com/start.sh)
-                    <button class="copy-btn" onclick="copyToClipboard('bash <(wget -qO- https://nosana.com/start.sh)')">Copy</button>
-                </div>
-            </div>
-
-            <div class="step" data-step="troubleshooting">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">7.</span>
-                    <div class="step-title">Proactive Troubleshooting</div>
-                </div>
-                <div class="step-description">Identify and resolve issues before they impact performance</div>
-                
-                <div class="code-block">
-                    # Check Docker status
-docker ps -a
-                    <button class="copy-btn" onclick="copyToClipboard('docker ps -a')">Copy</button>
-                </div>
-                
-                <div class="code-block">
-                    # Monitor system resources
-htop
-                    <button class="copy-btn" onclick="copyToClipboard('htop')">Copy</button>
-                </div>
-                
-                <div class="code-block">
-                    # Check GPU status
-nvidia-smi
-                    <button class="copy-btn" onclick="copyToClipboard('nvidia-smi')">Copy</button>
-                </div>
-                
-                <div class="success">Common troubleshooting steps:<br>
-• Restart node if performance degrades<br>
-• Monitor disk space and clean up if needed<br>
-• Check network connectivity regularly<br>
-• Review logs for error patterns<br>
-• Test GPU performance periodically</div>
-            </div>
-
-            <div class="step" data-step="promotion-application">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">8.</span>
-                    <div class="step-title">Apply for Promotion</div>
-                </div>
-                <div class="step-description">Submit your promotion request when you meet the criteria</div>
-                
-                <div class="important">Before applying, ensure you have:<br>
-• Maintained high performance for at least 30 days<br>
-• Completed minimum number of jobs successfully<br>
-• Demonstrated consistent uptime<br>
-• Active participation in community discussions</div>
-                
-                <div class="info">Promotion applications are typically reviewed on a regular basis. Be patient and continue maintaining excellent performance while waiting for review.</div>
+                <div class="info">Community Benefits:<br>
+• Get help with performance optimization<br>
+• Stay updated on promotion requirements<br>
+• Learn from successful node operators<br>
+• Get early access to new features<br>
+• Participate in community discussions</div>
             </div>
         </div>
 
@@ -817,3 +791,499 @@ nameserver 8.8.4.4</div>
                 <div class="code-block">
                     nslookup google.com
                     <button class="copy-btn" onclick="copyToClipboard('nslookup google.com')">Copy</button>
+                </div>
+                <div class="success">Expected: Server should show 8.8.8.8</div>
+            </div>
+
+            <div class="step" data-step="ubuntu-update">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">8.</span>
+                    <div class="step-title">Update Ubuntu System</div>
+                </div>
+                <div class="step-description">Download latest packages and security updates:</div>
+                <div class="code-block">
+                    sudo apt update && sudo apt upgrade -y
+                    <button class="copy-btn" onclick="copyToClipboard('sudo apt update && sudo apt upgrade -y')">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Docker Installation Section -->
+        <div class="section" data-section="docker">
+            <div class="section-header">
+                <div class="section-icon">🐳</div>
+                <div class="section-title">Docker Installation (AMD64)</div>
+            </div>
+            
+            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
+                • Install Docker Desktop for container management<br>
+                • Configure WSL2 integration<br>
+                • Test containerization capabilities
+            </div>
+            
+            <div class="step" data-step="docker-download">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">9.</span>
+                    <div class="step-title">Download Docker Desktop</div>
+                </div>
+                <div class="step-description">Download from: https://www.docker.com/products/docker-desktop/</div>
+                <div class="warning">Check "Use WSL 2 instead of Hyper-V" during installation</div>
+            </div>
+
+            <div class="step" data-step="docker-config">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">10.</span>
+                    <div class="step-title">Configure Docker Settings</div>
+                </div>
+                <div class="step-description">Settings → General → Enable "Use WSL 2 based engine"<br>
+                Settings → Resources → WSL Integration → Enable Ubuntu-22.04</div>
+            </div>
+
+            <div class="step" data-step="docker-user">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">11.</span>
+                    <div class="step-title">Add User to Docker Group</div>
+                </div>
+                <div class="code-block">
+                    sudo usermod -aG docker $USER
+                    <button class="copy-btn" onclick="copyToClipboard('sudo usermod -aG docker $USER')">Copy</button>
+                </div>
+                <div class="warning">Close Ubuntu window, wait 10 seconds, then reopen</div>
+            </div>
+
+            <div class="step" data-step="docker-test">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">12.</span>
+                    <div class="step-title">Test Docker Installation (Ubuntu)</div>
+                </div>
+                <div class="code-block">
+                    docker run hello-world
+                    <button class="copy-btn" onclick="copyToClipboard('docker run hello-world')">Copy</button>
+                </div>
+            </div>
+
+            <div class="step" data-step="pc-restart">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">13.</span>
+                    <div class="step-title">PC Restart</div>
+                </div>
+                <div class="step-description">Restart PC to refresh DNS settings</div>
+            </div>
+        </div>
+
+        <!-- NVIDIA Container Setup Section -->
+        <div class="section" data-section="nvidia">
+            <div class="section-header">
+                <div class="section-icon">🎮</div>
+                <div class="section-title">NVIDIA Container Setup (Ubuntu)</div>
+            </div>
+            
+            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
+                • Enable GPU access in containers<br>
+                • Install NVIDIA container toolkit<br>
+                • Configure GPU passthrough for compute tasks
+            </div>
+            
+            <div class="step" data-step="nvidia-check">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">14.</span>
+                    <div class="step-title">Check NVIDIA Drivers</div>
+                </div>
+                <div class="code-block">
+                    nvidia-smi
+                    <button class="copy-btn" onclick="copyToClipboard('nvidia-smi')">Copy</button>
+                </div>
+                <div class="warning">Update to latest drivers from NVIDIA website if needed</div>
+            </div>
+
+            <div class="step" data-step="nvidia-repo">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">15.</span>
+                    <div class="step-title">Add NVIDIA Repository</div>
+                </div>
+                <div class="code-block">
+                    curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list && sudo apt-get update
+                    <button class="copy-btn" onclick="copyToClipboard(`curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list && sudo apt-get update`)">Copy</button>
+                </div>
+            </div>
+
+            <div class="step" data-step="nvidia-toolkit">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">16.</span>
+                    <div class="step-title">Install NVIDIA Container Toolkit</div>
+                </div>
+                <div class="code-block">
+                    sudo apt-get install -y nvidia-container-toolkit
+                    <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install -y nvidia-container-toolkit')">Copy</button>
+                </div>
+            </div>
+
+            <div class="step" data-step="nvidia-configure">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">17.</span>
+                    <div class="step-title">Configure Container</div>
+                </div>
+                <div class="code-block">
+                    sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
+                    <button class="copy-btn" onclick="copyToClipboard('sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml')">Copy</button>
+                </div>
+            </div>
+
+            <div class="step" data-step="nvidia-verify">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">18.</span>
+                    <div class="step-title">Verify CDI Configuration</div>
+                </div>
+                <div class="code-block">
+                    sudo nvidia-ctk cdi list
+                    <button class="copy-btn" onclick="copyToClipboard('sudo nvidia-ctk cdi list')">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Podman Installation Section -->
+        <div class="section" data-section="podman">
+            <div class="section-header">
+                <div class="section-icon">📦</div>
+                <div class="section-title">Podman v4 Installation</div>
+            </div>
+            
+            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
+                • Install Podman container runtime<br>
+                • Configure GPU access for compute workloads<br>
+                • Test NVIDIA GPU integration
+            </div>
+            
+            <div class="step" data-step="podman-repo">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">19.</span>
+                    <div class="step-title">Add Podman Repository</div>
+                </div>
+                <div class="code-block">
+                    echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list
+                    <button class="copy-btn" onclick="copyToClipboard(`echo \"deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/ /\" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list`)">Copy</button>
+                </div>
+            </div>
+
+            <div class="step" data-step="podman-key">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">20.</span>
+                    <div class="step-title">Add Repository Key</div>
+                </div>
+                <div class="code-block">
+                    curl -fsSL https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/Release.key | sudo gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/devel_kubic_libcontainers_unstable.gpg > /dev/null
+                    <button class="copy-btn" onclick="copyToClipboard('curl -fsSL https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/Release.key | sudo gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/devel_kubic_libcontainers_unstable.gpg > /dev/null')">Copy</button>
+                </div>
+            </div>
+
+            <div class="step" data-step="podman-install">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">21.</span>
+                    <div class="step-title">Update and Install Podman</div>
+                </div>
+                <div class="code-block">
+                    sudo apt update && sudo apt install podman
+                    <button class="copy-btn" onclick="copyToClipboard('sudo apt update && sudo apt install podman')">Copy</button>
+                </div>
+            </div>
+
+            <div class="step" data-step="podman-version">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">22.</span>
+                    <div class="step-title">Check Podman Version</div>
+                </div>
+                <div class="code-block">
+                    podman --version
+                    <button class="copy-btn" onclick="copyToClipboard('podman --version')">Copy</button>
+                </div>
+            </div>
+
+            <div class="step" data-step="podman-gpu-test">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">23.</span>
+                    <div class="step-title">Test GPU Access with Podman</div>
+                </div>
+                <div class="code-block">
+                    podman run --rm --device nvidia.com/gpu=all --security-opt=label=disable ubuntu nvidia-smi -L
+                    <button class="copy-btn" onclick="copyToClipboard('podman run --rm --device nvidia.com/gpu=all --security-opt=label=disable ubuntu nvidia-smi -L')">Copy</button>
+                </div>
+                <div class="success">Look for: GPU 0: NVIDIA GeForce RTX... with UUID</div>
+            </div>
+        </div>
+
+        <!-- Nosana Installation Section -->
+        <div class="section" data-section="nosana">
+            <div class="section-header">
+                <div class="section-icon">🚀</div>
+                <div class="section-title">Nosana Installation</div>
+            </div>
+            
+            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
+                • Download and install Nosana node software<br>
+                • Generate wallet and configuration files
+            </div>
+            
+            <div class="step" data-step="nosana-install">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">24.</span>
+                    <div class="step-title">Run Nosana Installation Script</div>
+                </div>
+                <div class="code-block">
+                    bash <(wget -qO- https://nosana.com/start.sh)
+                    <button class="copy-btn" onclick="copyToClipboard('bash <(wget -qO- https://nosana.com/start.sh)')">Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wallet Management Section -->
+        <div class="section" data-section="wallet">
+            <div class="section-header">
+                <div class="section-icon">🔒</div>
+                <div class="section-title">Wallet Management</div>
+            </div>
+            
+            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
+                • Secure your private keys<br>
+                • Set up wallet for node operations<br>
+                • Configure wallet import/export options
+            </div>
+            
+            <div class="important">CRITICAL: Backup Your Keys Before Funding! Always backup your private key before adding funds to your wallet.</div>
+            
+            <div class="step" data-step="backup-key">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">25.</span>
+                    <div class="step-title">View & Backup Private Key</div>
+                </div>
+                <div class="code-block">
+                    sudo cat ~/.nosana/nosana_key.json
+                    <button class="copy-btn" onclick="copyToClipboard('sudo cat ~/.nosana/nosana_key.json')">Copy</button>
+                </div>
+                <div class="warning">Copy the long string with [ ] brackets and backup securely</div>
+            </div>
+
+            <div class="step" data-step="replace-key">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">26.</span>
+                    <div class="step-title">Replace Private Key (Optional)</div>
+                </div>
+                <div class="step-description">Use for Reinstall of node:</div>
+                <div class="code-block">
+                    sudo nano ~/.nosana/nosana_key.json
+                    <button class="copy-btn" onclick="copyToClipboard('sudo nano ~/.nosana/nosana_key.json')">Copy</button>
+                </div>
+                <div class="warning">Clear with Ctrl+K, paste new key with [ ] brackets, save with Ctrl+X, Y, Enter</div>
+            </div>
+
+            <div class="step" data-step="import-phantom">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">27.</span>
+                    <div class="step-title">Import to Phantom Wallet</div>
+                </div>
+                <div class="step-description">Use "Import Private Key" in Phantom with your backed up key</div>
+            </div>
+        </div>
+
+        <button class="reset-btn" onclick="resetProgress()">Reset Progress</button>
+    </div>
+
+    <script>
+        // Handle navigation between sections
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(section => {
+                    if (section.dataset.section === 'promotion') {
+                        section.style.display = 'none';
+                    } else {
+                        section.style.display = section.dataset.section === 'promotion' ? 'none' : 'block';
+                    }
+                });
+                
+                // Show appropriate sections based on button clicked
+                if (btn.id === 'promotion-btn') {
+                    document.querySelector('[data-section="promotion"]').style.display = 'block';
+                    document.querySelectorAll('.section:not([data-section="promotion"])').forEach(section => {
+                        section.style.display = 'none';
+                    });
+                } else {
+                    // Show installation sections
+                    document.querySelector('[data-section="promotion"]').style.display = 'none';
+                    document.querySelectorAll('.section:not([data-section="promotion"])').forEach(section => {
+                        section.style.display = 'block';
+                    });
+                }
+                
+                // Update active button styling
+                document.querySelectorAll('.nav-btn').forEach(navBtn => {
+                    navBtn.style.background = 'linear-gradient(135deg, #00ff88, #00cc6a)';
+                });
+                btn.style.background = 'linear-gradient(135deg, #00cc6a, #009954)';
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Load saved progress from localStorage
+        function loadProgress() {
+            const savedProgress = JSON.parse(localStorage.getItem('nosanaProgress') || '{}');
+            Object.keys(savedProgress).forEach(stepId => {
+                if (savedProgress[stepId]) {
+                    const step = document.querySelector(`[data-step="${stepId}"]`);
+                    if (step) {
+                        const checkbox = step.querySelector('.step-checkbox');
+                        checkbox.classList.add('checked');
+                        step.classList.add('completed');
+                    }
+                }
+            });
+            updateSectionIcons();
+        }
+
+        // Save progress to localStorage
+        function saveProgress() {
+            const progress = {};
+            document.querySelectorAll('.step').forEach(step => {
+                const stepId = step.dataset.step;
+                const isCompleted = step.classList.contains('completed');
+                progress[stepId] = isCompleted;
+            });
+            localStorage.setItem('nosanaProgress', JSON.stringify(progress));
+        }
+
+        // Handle step completion
+        document.querySelectorAll('.step-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', () => {
+                const step = checkbox.closest('.step');
+                const isCompleted = step.classList.contains('completed');
+                
+                if (isCompleted) {
+                    checkbox.classList.remove('checked');
+                    step.classList.remove('completed');
+                } else {
+                    checkbox.classList.add('checked');
+                    step.classList.add('completed');
+                    
+                    // Add a nice animation
+                    step.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        step.style.transform = 'scale(1)';
+                    }, 200);
+                }
+                
+                updateSectionIcons();
+                saveProgress();
+            });
+        });
+
+        // Update section icons based on completion
+        function updateSectionIcons() {
+            document.querySelectorAll('.section').forEach(section => {
+                const steps = section.querySelectorAll('.step');
+                const completedSteps = section.querySelectorAll('.step.completed');
+                const isAllCompleted = steps.length > 0 && steps.length === completedSteps.length;
+                
+                if (isAllCompleted) {
+                    section.classList.add('completed');
+                } else {
+                    section.classList.remove('completed');
+                }
+            });
+        }
+
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show feedback
+                const button = event.target;
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = '#00ff88';
+                button.style.color = '#000';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '#333';
+                    button.style.color = '#fff';
+                }, 1000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+
+        // Reset all progress
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                localStorage.removeItem('nosanaProgress');
+                
+                // Remove all completed states
+                document.querySelectorAll('.step-checkbox.checked').forEach(checkbox => {
+                    checkbox.classList.remove('checked');
+                });
+                
+                document.querySelectorAll('.step.completed').forEach(step => {
+                    step.classList.remove('completed');
+                });
+                
+                document.querySelectorAll('.section.completed').forEach(section => {
+                    section.classList.remove('completed');
+                });
+                
+                updateSectionIcons();
+            }
+        }
+
+        // Animate sections on load
+        document.querySelectorAll('.section').forEach((section, index) => {
+            section.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + R to reset (prevent default and show custom reset)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+                e.preventDefault();
+                resetProgress();
+            }
+        });
+
+        // Add progress persistence warning
+        window.addEventListener('beforeunload', (e) => {
+            const hasProgress = document.querySelectorAll('.step.completed').length > 0;
+            if (hasProgress) {
+                e.preventDefault();
+                e.returnValue = 'Your progress is automatically saved. You can safely close this page.';
+            }
+        });
+    </script>
+</body>
+</html>
