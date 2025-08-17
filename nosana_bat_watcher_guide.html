@@ -382,7 +382,7 @@
 <span class="bat-line"><span class="bat-command">echo</span> <span class="bat-string">Nosana</span> <span class="bat-variable">[NODE_NUMBER]</span> <span class="bat-variable">[GPU_TYPE]</span> <span class="bat-string">Loc</span> <span class="bat-variable">[LOCATION]</span> <span class="bat-string">Monitor</span></span>
 <span class="bat-line"><span class="bat-command">echo</span> <span class="bat-string">Connecting to Nosana</span> <span class="bat-variable">[NODE_NUMBER]</span> <span class="bat-variable">[GPU_TYPE]</span> <span class="bat-string">Loc</span> <span class="bat-variable">[LOCATION]</span><span class="bat-string">...</span></span>
 <span class="bat-line"><span class="bat-command">echo</span> <span class="bat-string">Server:</span> <span class="bat-variable">[USERNAME]</span><span class="bat-string">@</span><span class="bat-variable">[IP_ADDRESS]</span></span>
-<span class="bat-line"><span class="bat-command">ssh</span> <span class="bat-string">-t -o ServerAliveInterval=15 -o ServerAliveCountMax=3</span> <span class="bat-string">"</span><span class="bat-variable">[USERNAME]</span><span class="bat-string">@</span><span class="bat-variable">[IP_ADDRESS]</span><span class="bat-string">"</span> <span class="bat-string">"docker logs -f --tail=10 nosana-node"</span> <span class="bat-string">|</span> <span class="bat-command">findstr</span> <span class="bat-string">/i</span> <span class="bat-string">"QUEUED found claimed starting started completed running"</span> <span class="bat-string">|</span> <span class="bat-command">findstr</span> <span class="bat-string">/v</span> <span class="bat-string">"FINDSTR: Line"</span></span>
+<span class="bat-line"><span class="bat-command">ssh</span> <span class="bat-string">-t -o ServerAliveInterval=15 -o ServerAliveCountMax=3</span> <span class="bat-string">"</span><span class="bat-variable">[USERNAME]</span><span class="bat-string">@</span><span class="bat-variable">[IP_ADDRESS]</span><span class="bat-string">"</span> <span class="bat-string">"docker logs -f --tail=10 nosana-node"</span> <span class="bat-string">|</span> <span class="bat-command">findstr</span> <span class="bat-string">/i</span> <span class="bat-string">"QUEUED found claimed starting started completed running Fetching Health cleaning restarted specs Grid recommending"</span> <span class="bat-string">|</span> <span class="bat-command">findstr</span> <span class="bat-string">/v</span> <span class="bat-string">"FINDSTR: Line"</span></span>
 <span class="bat-line"><span class="bat-command">pause</span></span>
                 </div>
 
@@ -421,7 +421,7 @@
                         <li><strong>ServerAliveInterval=15</strong> - Sends keepalive every 15 seconds</li>
                         <li><strong>ServerAliveCountMax=3</strong> - Disconnects after 3 failed pings</li>
                         <li><strong>docker logs -f --tail=10</strong> - Shows last 10 log lines and follows new ones</li>
-                        <li><strong>findstr /i</strong> - Filters for job status keywords (case insensitive)</li>
+                        <li><strong>findstr /i</strong> - Filters for job status keywords and system activities (case insensitive)</li>
                         <li><strong>pause</strong> - Keeps window open when finished</li>
                     </ul>
                 </div>
@@ -449,13 +449,14 @@
                         <li>Enter SSH password when prompted (if not using keys)</li>
                         <li>Watch real-time job status updates scroll by</li>
                         <li>Look for: QUEUED → FOUND → CLAIMED → STARTING → STARTED → RUNNING → COMPLETED</li>
+                        <li>Also monitors: FETCHING, HEALTH, CLEANING, RESTARTED, SPECS, GRID, RECOMMENDING</li>
                         <li>Press Ctrl+C to stop monitoring</li>
                         <li>Press any key to close the window</li>
                     </ul>
                 </div>
 
                 <div class="success">
-                    The watcher filters and shows only the important job status updates, making it easy to monitor your node's activity at a glance.
+                    The watcher filters and shows important job status updates and system activities, including job progression, health checks, cleanup operations, and system recommendations.
                 </div>
             </div>
         </div>
