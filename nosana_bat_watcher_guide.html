@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosana .bat Watcher Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ff88, #00cc6a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #666, #888);
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 102, 102, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 102, 102, 0.4);
+            background: linear-gradient(135deg, #888, #aaa);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-shrink: 0;
+        }
+
+        .section-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            filter: grayscale(100%);
+            transition: all 0.3s ease;
+        }
+
+        .section.completed .section-icon {
+            filter: none;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .step {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #333;
+            transition: all 0.3s ease;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step.completed {
+            border-left-color: #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #666;
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .step-checkbox.checked {
+            background: #00ff88;
+            border-color: #00ff88;
+        }
+
+        .step-checkbox.checked::after {
+            content: '✓';
+            color: #000;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .step-title {
+            font-weight: bold;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .step-description {
+            color: #ccc;
+            margin-bottom: 15px;
+            margin-left: 37px;
+            flex-grow: 1;
+        }
+
+        .bat-file-container {
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0 15px 37px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .bat-file-header {
+            color: #888;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .bat-line {
+            color: #fff;
+            margin: 5px 0;
+            display: block;
+            white-space: pre;
+        }
+
+        .bat-comment {
+            color: #888;
+            font-style: italic;
+        }
+
+        .bat-command {
+            color: #00ff88;
+        }
+
+        .bat-string {
+            color: #ffc107;
+        }
+
+        .bat-variable {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(0, 255, 136, 0.3);
+        }
+
+        .warning {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0 10px 37px;
+            color: #ffc107;
+        }
+
+        .warning::before {
+            content: '⚠️ ';
+            margin-right: 10px;
+        }
+
+        .success {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0 10px 37px;
+            color: #00ff88;
+        }
+
+        .success::before {
+            content: '✅ ';
+            margin-right: 10px;
+        }
+
+        .reset-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        .step-number {
+            color: #00ff88;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+
+        .requirements-list {
+            margin: 10px 0 10px 37px;
+            color: #ccc;
+        }
+
+        .requirements-list ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .requirements-list li {
+            margin: 8px 0;
+            position: relative;
+        }
+
+        .requirements-list li::before {
+            content: '•';
+            color: #00ff88;
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                min-height: auto;
+            }
+            
+            .bat-file-container {
+                font-size: 0.8rem;
+                margin-left: 10px;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: slideUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">NOSANA</div>
+            <div class="subtitle">🖥️ .bat Watcher - Remote Node Monitoring</div>
+            
+            <a href="index.html" class="back-btn">
+                <span>←</span>
+                Back to Main Guide
+            </a>
+        </div>
+
+        <!-- Create Script Section -->
+        <div class="section" data-section="script-creation">
+            <div class="section-header">
+                <div class="section-icon">📝</div>
+                <div class="section-title">Create Your .bat File</div>
+            </div>
+
+            <div class="step" data-step="create-script">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">1.</span>
+                    <div class="step-title">Copy This Exact Script</div>
+                </div>
+                <div class="step-description">Create a new .bat file and paste this script exactly as shown:</div>
+
+                <div class="bat-file-container">
+                    <div class="bat-file-header">📄 nosana-watcher.bat</div>
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    
+<span class="bat-line"><span class="bat-command">@echo off</span></span>
+<span class="bat-line"><span class="bat-command">title</span> <span class="bat-string">Nosana</span> <span class="bat-variable">[NODE_NUMBER]</span> <span class="bat-variable">[GPU_TYPE]</span> <span class="bat-string">Loc</span> <span class="bat-variable">[LOCATION]</span></span>
+<span class="bat-line"><span class="bat-command">echo</span> <span class="bat-string">Nosana</span> <span class="bat-variable">[NODE_NUMBER]</span> <span class="bat-variable">[GPU_TYPE]</span> <span class="bat-string">Loc</span> <span class="bat-variable">[LOCATION]</span> <span class="bat-string">Monitor</span></span>
+<span class="bat-line"><span class="bat-command">echo</span> <span class="bat-string">Connecting to Nosana</span> <span class="bat-variable">[NODE_NUMBER]</span> <span class="bat-variable">[GPU_TYPE]</span> <span class="bat-string">Loc</span> <span class="bat-variable">[LOCATION]</span><span class="bat-string">...</span></span>
+<span class="bat-line"><span class="bat-command">echo</span> <span class="bat-string">Server:</span> <span class="bat-variable">[USERNAME]</span><span class="bat-string">@</span><span class="bat-variable">[IP_ADDRESS]</span></span>
+<span class="bat-line"><span class="bat-command">ssh</span> <span class="bat-string">-t -o ServerAliveInterval=15 -o ServerAliveCountMax=3</span> <span class="bat-string">"</span><span class="bat-variable">[USERNAME]</span><span class="bat-string">@</span><span class="bat-variable">[IP_ADDRESS]</span><span class="bat-string">"</span> <span class="bat-string">"docker logs -f --tail=10 nosana-node"</span> <span class="bat-string">|</span> <span class="bat-command">findstr</span> <span class="bat-string">/i</span> <span class="bat-string">"QUEUED found claimed starting started completed running"</span> <span class="bat-string">|</span> <span class="bat-command">findstr</span> <span class="bat-string">/v</span> <span class="bat-string">"FINDSTR: Line"</span></span>
+<span class="bat-line"><span class="bat-command">pause</span></span>
+                </div>
+
+                <div class="warning">
+                    Replace these variables with your actual values:<br>
+                    • <strong>[NODE_NUMBER]</strong>: Node identifier (1, 2, 3, etc.)<br>
+                    • <strong>[GPU_TYPE]</strong>: Your GPU model (3080, 4090, etc.)<br>
+                    • <strong>[LOCATION]</strong>: Location identifier (1, 2, Home, etc.)<br>
+                    • <strong>[USERNAME]</strong>: SSH username<br>
+                    • <strong>[IP_ADDRESS]</strong>: Target IP address
+                </div>
+            </div>
+        </div>
+
+        <!-- Script Breakdown Section -->
+        <div class="section" data-section="explanation">
+            <div class="section-header">
+                <div class="section-icon">📖</div>
+                <div class="section-title">Script Breakdown</div>
+            </div>
+
+            <div class="step" data-step="understand-script">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">2.</span>
+                    <div class="step-title">Understanding Each Line</div>
+                </div>
+                <div class="step-description">What each line in your .bat file does:</div>
+
+                <div class="requirements-list">
+                    <ul>
+                        <li><strong>@echo off</strong> - Hides command output for cleaner display</li>
+                        <li><strong>title</strong> - Sets window title to identify your node</li>
+                        <li><strong>echo [messages]</strong> - Displays connection info and status</li>
+                        <li><strong>ssh -t</strong> - Connects with interactive terminal</li>
+                        <li><strong>ServerAliveInterval=15</strong> - Sends keepalive every 15 seconds</li>
+                        <li><strong>ServerAliveCountMax=3</strong> - Disconnects after 3 failed pings</li>
+                        <li><strong>docker logs -f --tail=10</strong> - Shows last 10 log lines and follows new ones</li>
+                        <li><strong>findstr /i</strong> - Filters for job status keywords (case insensitive)</li>
+                        <li><strong>pause</strong> - Keeps window open when finished</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Usage Section -->
+        <div class="section" data-section="usage">
+            <div class="section-header">
+                <div class="section-icon">🚀</div>
+                <div class="section-title">Using the Watcher</div>
+            </div>
+
+            <div class="step" data-step="run-script">
+                <div class="step-header">
+                    <div class="step-checkbox"></div>
+                    <span class="step-number">3.</span>
+                    <div class="step-title">Running Your Monitor</div>
+                </div>
+                <div class="step-description">How to use your .bat watcher:</div>
+
+                <div class="requirements-list">
+                    <ul>
+                        <li>Double-click your .bat file to start monitoring</li>
+                        <li>Enter SSH password when prompted (if not using keys)</li>
+                        <li>Watch real-time job status updates scroll by</li>
+                        <li>Look for: QUEUED → FOUND → CLAIMED → STARTING → STARTED → RUNNING → COMPLETED</li>
+                        <li>Press Ctrl+C to stop monitoring</li>
+                        <li>Press any key to close the window</li>
+                    </ul>
+                </div>
+
+                <div class="success">
+                    The watcher filters and shows only the important job status updates, making it easy to monitor your node's activity at a glance.
+                </div>
+            </div>
+        </div>
+
+        <button class="reset-btn" onclick="resetProgress()">Reset Progress</button>
+    </div>
+
+    <script>
+        // Copy to clipboard function
+        function copyToClipboard(button) {
+            const codeContainer = button.parentElement;
+            // Get all the text content, excluding the header and button
+            const lines = codeContainer.querySelectorAll('.bat-line');
+            let code = '';
+            lines.forEach(line => {
+                code += line.textContent + '\n';
+            });
+            
+            navigator.clipboard.writeText(code.trim()).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = 'rgba(0, 255, 136, 0.4)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'rgba(0, 255, 136, 0.2)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                button.textContent = 'Failed';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Load saved progress from localStorage
+        function loadProgress() {
+            const savedProgress = JSON.parse(localStorage.getItem('nosanaBatWatcherProgress') || '{}');
+            Object.keys(savedProgress).forEach(stepId => {
+                if (savedProgress[stepId]) {
+                    const step = document.querySelector(`[data-step="${stepId}"]`);
+                    if (step) {
+                        const checkbox = step.querySelector('.step-checkbox');
+                        checkbox.classList.add('checked');
+                        step.classList.add('completed');
+                    }
+                }
+            });
+            updateSectionIcons();
+        }
+
+        // Save progress to localStorage
+        function saveProgress() {
+            const progress = {};
+            document.querySelectorAll('.step').forEach(step => {
+                const stepId = step.dataset.step;
+                const isCompleted = step.classList.contains('completed');
+                progress[stepId] = isCompleted;
+            });
+            localStorage.setItem('nosanaBatWatcherProgress', JSON.stringify(progress));
+        }
+
+        // Handle step completion
+        document.querySelectorAll('.step-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', () => {
+                const step = checkbox.closest('.step');
+                const isCompleted = step.classList.contains('completed');
+                
+                if (isCompleted) {
+                    checkbox.classList.remove('checked');
+                    step.classList.remove('completed');
+                } else {
+                    checkbox.classList.add('checked');
+                    step.classList.add('completed');
+                    
+                    // Add a nice animation
+                    step.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        step.style.transform = 'scale(1)';
+                    }, 200);
+                }
+                
+                updateSectionIcons();
+                saveProgress();
+            });
+        });
+
+        // Update section icons based on completion
+        function updateSectionIcons() {
+            document.querySelectorAll('.section').forEach(section => {
+                const steps = section.querySelectorAll('.step');
+                const completedSteps = section.querySelectorAll('.step.completed');
+                const isAllCompleted = steps.length > 0 && steps.length === completedSteps.length;
+                
+                if (isAllCompleted) {
+                    section.classList.add('completed');
+                } else {
+                    section.classList.remove('completed');
+                }
+            });
+        }
+
+        // Reset all progress
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                localStorage.removeItem('nosanaBatWatcherProgress');
+                
+                // Remove all completed states
+                document.querySelectorAll('.step-checkbox.checked').forEach(checkbox => {
+                    checkbox.classList.remove('checked');
+                });
+                
+                document.querySelectorAll('.step.completed').forEach(step => {
+                    step.classList.remove('completed');
+                });
+                
+                document.querySelectorAll('.section.completed').forEach(section => {
+                    section.classList.remove('completed');
+                });
+                
+                updateSectionIcons();
+            }
+        }
+
+        // Animate sections on load
+        document.querySelectorAll('.section').forEach((section, index) => {
+            section.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + R to reset (prevent default and show custom reset)
+            if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+                e.preventDefault();
+                resetProgress();
+            }
+        });
+
+        // Add progress persistence warning
+        window.addEventListener('beforeunload', (e) => {
+            const hasProgress = document.querySelectorAll('.step.completed').length > 0;
+            if (hasProgress) {
+                e.preventDefault();
+                e.returnValue = 'Your progress is automatically saved. You can safely close this page.';
+            }
+        });
+    </script>
+</body>
+</html>
