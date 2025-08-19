@@ -120,10 +120,25 @@
             color: #66b3ff;
         }
 
-        body.dark-mode .nav-dropdown {
-            background: #3a3a3a;
-            border-color: #555;
-            color: #e0e0e0;
+        .links-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .quick-link {
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 3px;
+            font-size: 13px;
+            transition: background 0.3s;
+        }
+
+        .quick-link:hover {
+            background: #2980b9;
         }
 
         .quick-links {
@@ -138,6 +153,7 @@
             margin-bottom: 10px;
             color: #2c3e50;
             font-size: 16px;
+            text-align: center;
         }
 
         .nav-dropdown {
@@ -169,6 +185,7 @@
             padding: 15px 20px;
             font-size: 18px;
             font-weight: bold;
+            text-align: center;
         }
 
         .step-number {
@@ -273,32 +290,15 @@
             <button class="theme-button" onclick="toggleTheme()">🌙 Toggle Dark Mode</button>
         </div>
 
-        <!-- Quick Links -->
+        <!-- Quick Tools -->
         <div class="quick-links">
-            <h2>Quick Navigation</h2>
-            <select class="nav-dropdown" onchange="navigateToStep(this.value)">
-                <option value="">Select a step...</option>
-                <option value="step1">1. Initial Setup</option>
-                <option value="step2">2. WSL Config</option>
-                <option value="step3">3. Ubuntu Install</option>
-                <option value="step4">4. Docker Install</option>
-                <option value="step5">5. NVIDIA Setup</option>
-                <option value="step6">6. Podman Install</option>
-                <option value="step7">7. Configure WSL2 DNS</option>
-                <option value="step8">8. Set Google DNS</option>
-                <option value="step9">9. Nosana Install</option>
-            </select>
-            
-            <!-- Quick Tools Dropdown - Uncomment when ready to use -->
-            <!--
-            <select class="nav-dropdown" style="margin-left: 15px;" onchange="navigateToTool(this.value)">
-                <option value="">Quick Tools...</option>
-                <option value="cmd-monitor">CMD Monitor File</option>
-                <option value="quick-reinstall">Quick Reinstall Guide</option>
-                <option value="reset-dns">Resetting DNS</option>
-                <option value="troubleshooting">Troubleshooting</option>
-            </select>
-            -->
+            <h2>Quick Tools</h2>
+            <div class="links-container">
+                <a href="#cmd-monitor" class="quick-link">CMD Monitor File</a>
+                <a href="#quick-reinstall" class="quick-link">Quick Reinstall Guide</a>
+                <a href="#reset-dns" class="quick-link">Resetting DNS</a>
+                <a href="#troubleshooting" class="quick-link">Troubleshooting</a>
+            </div>
         </div>
 
         <!-- Step 1: Initial Setup -->
@@ -395,6 +395,10 @@ swap=16GB
                 </ul>
 
                 <div class="command">sudo usermod -aG docker $USER</div>
+
+                <div class="important">
+                    <strong>Note:</strong> If you're not prompted for a password when running sudo usermod -aG docker $USER, shut down Ubuntu and reopen Ubuntu
+                </div>
 
                 <p>Close Ubuntu window, wait 10 seconds, then reopen</p>
 
