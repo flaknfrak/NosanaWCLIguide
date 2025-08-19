@@ -5,943 +5,620 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosana Node Installation Guide</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            color: #ffffff;
+            font-family: Arial, sans-serif;
             line-height: 1.6;
-            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 40px 0;
-        }
-
-        .logo {
-            font-size: 3rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #00ff88, #00cc6a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: #888;
-            margin-bottom: 30px;
-        }
-
-        .nav-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .nav-btn {
-            background: linear-gradient(135deg, #00ff88, #00cc6a);
-            color: #000;
-            text-decoration: none;
-            padding: 15px 25px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
-            background: linear-gradient(135deg, #00cc6a, #00ff88);
-        }
-
-        .nav-btn:active {
-            transform: translateY(-1px);
-        }
-
-        .nav-btn-icon {
-            font-size: 1.2rem;
-        }
-
-        .section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
+            background: white;
             padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .theme-toggle {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .theme-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .theme-button:hover {
+            background: #2980b9;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .container {
+            background: #2d2d2d;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode h1 {
+            color: #ffffff;
+            border-bottom-color: #3498db;
+        }
+
+        body.dark-mode .quick-links {
+            background: #3a3a3a;
+        }
+
+        body.dark-mode .quick-links h2 {
+            color: #ffffff;
+        }
+
+        body.dark-mode .step {
+            border-color: #555;
+        }
+
+        body.dark-mode .step-header {
+            background: #444;
+        }
+
+        body.dark-mode .step-content {
+            background: #2d2d2d;
+        }
+
+        body.dark-mode .important {
+            background: #4a4a2a;
+            border-color: #666633;
+            color: #ffeb99;
+        }
+
+        body.dark-mode .critical {
+            background: #4a2a2a;
+            border-color: #663333;
+            color: #ffcccc;
+        }
+
+        body.dark-mode .code {
+            background: #3a3a3a;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .command {
+            background: #1a1a1a;
+            color: #00ff00;
+        }
+
+        body.dark-mode .verification {
+            background: #2a4a2a;
+            border-color: #336633;
+            color: #ccffcc;
+        }
+
+        body.dark-mode a {
+            color: #66b3ff;
+        }
+
+        body.dark-mode .nav-dropdown {
+            background: #3a3a3a;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+
+        .quick-links {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
             margin-bottom: 30px;
-            border: 1px solid rgba(0, 255, 136, 0.1);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
         }
 
-        .section:hover {
-            border-color: rgba(0, 255, 136, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+        .quick-links h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-size: 16px;
         }
 
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
+        .nav-dropdown {
+            width: 250px;
+            padding: 8px 12px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            background: white;
+            color: #2c3e50;
+            font-size: 14px;
+            cursor: pointer;
         }
 
-        .section-icon {
-            font-size: 2rem;
-            margin-right: 15px;
-            filter: grayscale(100%);
-            transition: all 0.3s ease;
-        }
-
-        .section.completed .section-icon {
-            filter: none;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #00ff88;
+        .nav-dropdown:focus {
+            outline: none;
+            border-color: #3498db;
         }
 
         .step {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-left: 4px solid #333;
-            transition: all 0.3s ease;
-        }
-
-        .step.completed {
-            border-left-color: #00ff88;
-            background: rgba(0, 255, 136, 0.1);
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
         }
 
         .step-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .step-checkbox {
-            width: 22px;
-            height: 22px;
-            border: 2px solid #666;
-            border-radius: 50%;
-            margin-right: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .step-checkbox.checked {
-            background: #00ff88;
-            border-color: #00ff88;
-        }
-
-        .step-checkbox.checked::after {
-            content: '✓';
-            color: #000;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .step-title {
-            font-weight: bold;
-            color: #fff;
-            font-size: 1.1rem;
-        }
-
-        .step-description {
-            color: #ccc;
-            margin-bottom: 15px;
-            margin-left: 37px;
-        }
-
-        .code-block {
-            background: #000;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 15px;
-            font-family: 'Courier New', monospace;
-            color: #00ff88;
-            margin: 10px 0 10px 37px;
-            position: relative;
-            overflow-x: auto;
-        }
-
-        .code-block::before {
-            content: '$ ';
-            color: #666;
-        }
-
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #333;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: background 0.3s ease;
-        }
-
-        .copy-btn:hover {
-            background: #00ff88;
-            color: #000;
-        }
-
-        .warning {
-            background: rgba(255, 193, 7, 0.1);
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0 10px 37px;
-            color: #ffc107;
-        }
-
-        .warning::before {
-            content: '⚠️ ';
-            margin-right: 10px;
-        }
-
-        .important {
-            background: rgba(220, 53, 69, 0.1);
-            border: 1px solid rgba(220, 53, 69, 0.3);
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0 10px 37px;
-            color: #dc3545;
-        }
-
-        .important::before {
-            content: '🔥 ';
-            margin-right: 10px;
-        }
-
-        .success {
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0 10px 37px;
-            color: #00ff88;
-        }
-
-        .file-content {
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0 10px 37px;
-            font-family: 'Courier New', monospace;
-            color: #ccc;
-            white-space: pre-wrap;
-        }
-
-        .reset-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #dc3545;
+            background: #34495e;
             color: white;
-            border: none;
             padding: 15px 20px;
-            border-radius: 50px;
-            cursor: pointer;
+            font-size: 18px;
             font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
-        }
-
-        .reset-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
         }
 
         .step-number {
-            color: #00ff88;
-            font-weight: bold;
-            margin-right: 10px;
-            font-size: 0.9rem;
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 16px;
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .step-content {
+            padding: 20px;
         }
 
-        .section {
-            animation: slideUp 0.6s ease forwards;
+        .important {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        .critical {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            color: #721c24;
+        }
+
+        .code {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .command {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            display: block;
+        }
+
+        .verification {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            color: #155724;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: #3498db;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .links-container {
+                flex-direction: column;
+            }
+            
+            .quick-link {
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="logo">NOSANA</div>
-            <div class="subtitle">Windows CLI Node Installation Guide</div>
-            
-            <div class="nav-buttons">
-                <a href="windows_ssh_guide.html" class="nav-btn" id="windows-ssh-btn">
-                    <span class="nav-btn-icon">🪟</span>
-                    Windows SSH
-                </a>
-                <a href="nosana_bat_watcher_guide.html" class="nav-btn" id="bat-watcher-btn">
-                    <span class="nav-btn-icon">🖥️</span>
-                    .bat Watcher
-                </a>
-                <a href="windows_cmd_monitor.html" class="nav-btn" id="windows-cmd-btn">
-                    <span class="nav-btn-icon">📊</span>
-                    Windows CMD Monitor
-                </a>
-                <a href="get_node_promoted.html" class="nav-btn" id="promotion-btn">
-                    <span class="nav-btn-icon">🏆</span>
-                    Get Node Promoted
-                </a>
-            </div>
+        <h1>Nosana Node Installation Guide</h1>
+        
+        <div class="theme-toggle">
+            <button class="theme-button" onclick="toggleTheme()">🌙 Toggle Dark Mode</button>
         </div>
 
-        <!-- Initial Setup Section -->
-        <div class="section" data-section="setup">
-            <div class="section-header">
-                <div class="section-icon">🔧</div>
-                <div class="section-title">Initial Setup</div>
-            </div>
+        <!-- Quick Links -->
+        <div class="quick-links">
+            <h2>Quick Navigation</h2>
+            <select class="nav-dropdown" onchange="navigateToStep(this.value)">
+                <option value="">Select a step...</option>
+                <option value="step1">1. Initial Setup</option>
+                <option value="step2">2. WSL Config</option>
+                <option value="step3">3. Ubuntu Install</option>
+                <option value="step4">4. Docker Install</option>
+                <option value="step5">5. NVIDIA Setup</option>
+                <option value="step6">6. Podman Install</option>
+                <option value="step7">7. Configure WSL2 DNS</option>
+                <option value="step8">8. Set Google DNS</option>
+                <option value="step9">9. Nosana Install</option>
+            </select>
             
-            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
-                • Configure DNS for stable internet connection<br>
-                • Prepare your system for WSL installation
-            </div>
-            
-            <div class="important">IMPORTANT FIRST STEP - Change DNS before proceeding!</div>
-            
-            <div class="step" data-step="dns-change">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">1.</span>
-                    <div class="step-title">Configure DNS Settings</div>
-                </div>
-                <div class="step-description">Set DNS to Google's servers</div>
-                <div class="warning">Set DNS to 8.8.8.8 and 8.8.4.4 in network adapter IPv4 settings.</div>
-            </div>
+            <!-- Quick Tools Dropdown - Uncomment when ready to use -->
+            <!--
+            <select class="nav-dropdown" style="margin-left: 15px;" onchange="navigateToTool(this.value)">
+                <option value="">Quick Tools...</option>
+                <option value="cmd-monitor">CMD Monitor File</option>
+                <option value="quick-reinstall">Quick Reinstall Guide</option>
+                <option value="reset-dns">Resetting DNS</option>
+                <option value="troubleshooting">Troubleshooting</option>
+            </select>
+            -->
         </div>
 
-        <!-- WSL Configuration Section -->
-        <div class="section" data-section="wsl">
-            <div class="section-header">
-                <div class="section-icon">⚙️</div>
-                <div class="section-title">WSL Configuration</div>
+        <!-- Step 1: Initial Setup -->
+        <div class="step" id="step1">
+            <div class="step-header">
+                <span class="step-number">1</span>Initial Setup
             </div>
-            
-            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
-                • Create WSL configuration file<br>
-                • Optimize memory and CPU allocation for containers
-            </div>
-            
-            <div class="step" data-step="wslconfig-create">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">2.</span>
-                    <div class="step-title">Create .wslconfig File</div>
+            <div class="step-content">
+                <div class="important">
+                    <strong>IMPORTANT FIRST STEP - Change DNS before proceeding!</strong><br>
+                    Set DNS to Google's servers: 8.8.8.8 and 8.8.4.4 in network adapter IPv4 settings.
                 </div>
-                <div class="step-description">Create in C:\Users\[USERNAME]\ - Use notepad, save as ".wslconfig" with file type "all"</div>
-                <div class="file-content">[wsl2]
-memory=58GB     # ~90% of your RAM
-processors=16   # Match your CPU cores  
-swap=16GB</div>
-                <div class="warning">Modify values according to your system specs</div>
-            </div>
-        </div>
 
-        <!-- Ubuntu Installation Section -->
-        <div class="section" data-section="ubuntu">
-            <div class="section-header">
-                <div class="section-icon">🐧</div>
-                <div class="section-title">Ubuntu 22.04 LTS Installation</div>
-            </div>
-            
-            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
-                • Install Ubuntu Linux subsystem<br>
-                • Set up command line environment for Nosana
-            </div>
-            
-            <div class="step" data-step="ubuntu-install">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">3.</span>
-                    <div class="step-title">Install Ubuntu via PowerShell</div>
-                </div>
-                <div class="step-description">Open PowerShell as Administrator and run:</div>
-                <div class="code-block">
-                    wsl --install -d Ubuntu-22.04
-                    <button class="copy-btn" onclick="copyToClipboard('wsl --install -d Ubuntu-22.04')">Copy</button>
-                </div>
-            </div>
+                <ul>
+                    <li>Configure DNS for stable internet connection</li>
+                    <li>Prepare your system for WSL installation</li>
+                    <li>Set DNS to 8.8.8.8 and 8.8.4.4 in network adapter IPv4 settings</li>
+                </ul>
 
-            <div class="step" data-step="ubuntu-verify">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">4.</span>
-                    <div class="step-title">Verify Installation</div>
-                </div>
-                <div class="step-description">Start Ubuntu and verify installation:</div>
-                <div class="code-block">
-                    lsb_release -a
-                    <button class="copy-btn" onclick="copyToClipboard('lsb_release -a')">Copy</button>
+                <div class="verification">
+                    <strong>Verification:</strong> Restart PC to refresh DNS settings after making changes.
                 </div>
             </div>
         </div>
 
-        <!-- WSL2 DNS Configuration Section -->
-        <div class="section" data-section="wsl-dns">
-            <div class="section-header">
-                <div class="section-icon">🌐</div>
-                <div class="section-title">Configure WSL2 DNS Settings</div>
+        <!-- Step 2: WSL Config -->
+        <div class="step" id="step2">
+            <div class="step-header">
+                <span class="step-number">2</span>WSL Configuration
             </div>
-            
-            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
-                • Configure reliable DNS resolution<br>
-                • Ensure stable internet connectivity in Ubuntu<br>
-                • Update system packages to latest versions
+            <div class="step-content">
+                <ul>
+                    <li>Create WSL configuration file</li>
+                    <li>Optimize memory and CPU allocation for containers</li>
+                </ul>
+
+                <p>Create in <strong>C:\Users\[USERNAME]\</strong> - Use notepad, save as ".wslconfig" with file type "all"</p>
+                <p><em>Note: Each parameter should be on its own line</em></p>
+
+                <div class="code">
+[wsl2]
+memory=58GB
+processors=16
+swap=16GB
+                </div>
+
+                <div class="important">
+                    <strong>Note:</strong> Set memory to ~80% of your total RAM. Modify values according to your system specs
+                </div>
             </div>
-            
-            <div class="step" data-step="wsl-conf">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">5.</span>
-                    <div class="step-title">Configure WSL2 DNS</div>
+        </div>
+
+        <!-- Step 3: Ubuntu Install -->
+        <div class="step" id="step3">
+            <div class="step-header">
+                <span class="step-number">3</span>Ubuntu Installation
+            </div>
+            <div class="step-content">
+                <ul>
+                    <li>Install Ubuntu Linux subsystem</li>
+                    <li>Set up command line environment for Nosana</li>
+                </ul>
+
+                <p>Open PowerShell as Administrator and run:</p>
+                <div class="command">wsl --install -d Ubuntu-22.04</div>
+
+                <p>Start Ubuntu and verify installation:</p>
+                <div class="command">lsb_release -a</div>
+
+                <div class="verification">
+                    <strong>Expected:</strong> Ubuntu 22.04 LTS information should be displayed
                 </div>
-                <div class="step-description">Open WSL2 configuration file and prevent auto-generation of DNS settings:</div>
-                <div class="code-block">
-                    sudo nano /etc/wsl.conf
-                    <button class="copy-btn" onclick="copyToClipboard('sudo nano /etc/wsl.conf')">Copy</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Docker Install -->
+        <div class="step" id="step4">
+            <div class="step-header">
+                <span class="step-number">4</span>Docker Installation (AMD64)
+            </div>
+            <div class="step-content">
+                <ul>
+                    <li>Install Docker Desktop for container management</li>
+                    <li>Configure WSL2 integration</li>
+                    <li>Test containerization capabilities</li>
+                </ul>
+
+                <p>Download from: <a href="https://www.docker.com/products/docker-desktop/" target="_blank">https://www.docker.com/products/docker-desktop/</a></p>
+
+                <ul>
+                    <li>Check "Use WSL 2 instead of Hyper-V" during installation</li>
+                    <li>Settings → General → Enable "Use WSL 2 based engine"</li>
+                    <li>Settings → Resources → WSL Integration → Enable Ubuntu-22.04</li>
+                </ul>
+
+                <div class="command">sudo usermod -aG docker $USER</div>
+
+                <p>Close Ubuntu window, wait 10 seconds, then reopen</p>
+
+                <div class="command">docker run hello-world</div>
+
+                <div class="verification">
+                    <strong>Expected:</strong> "Hello from Docker!" message confirming successful installation
                 </div>
-                <div class="file-content">[boot]
+            </div>
+        </div>
+
+        <!-- Step 5: NVIDIA Setup -->
+        <div class="step" id="step5">
+            <div class="step-header">
+                <span class="step-number">5</span>NVIDIA Configuration
+            </div>
+            <div class="step-content">
+                <ul>
+                    <li>Enable GPU access in containers</li>
+                    <li>Install NVIDIA container toolkit</li>
+                    <li>Configure GPU passthrough for compute tasks</li>
+                </ul>
+
+                <div class="command">nvidia-smi</div>
+                <p>Update to latest drivers from NVIDIA website if needed</p>
+
+                <div class="command">curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list && sudo apt-get update</div>
+
+                <div class="command">sudo apt-get install -y nvidia-container-toolkit</div>
+                <div class="command">sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml</div>
+                <div class="command">sudo nvidia-ctk cdi list</div>
+
+                <div class="verification">
+                    <strong>Expected:</strong> NVIDIA GPU should be listed with UUID
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 6: Podman Install -->
+        <div class="step" id="step6">
+            <div class="step-header">
+                <span class="step-number">6</span>Podman Installation
+            </div>
+            <div class="step-content">
+                <ul>
+                    <li>Install Podman container runtime</li>
+                    <li>Configure GPU access for compute workloads</li>
+                    <li>Test NVIDIA GPU integration</li>
+                </ul>
+
+                <div class="command">echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list</div>
+
+                <div class="command">curl -fsSL https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/Release.key | sudo gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/devel_kubic_libcontainers_unstable.gpg > /dev/null</div>
+
+                <div class="command">sudo apt update && sudo apt install podman</div>
+
+                <div class="command">podman run --rm --device nvidia.com/gpu=all --security-opt=label=disable ubuntu nvidia-smi -L</div>
+
+                <div class="verification">
+                    <strong>Look for:</strong> GPU 0: NVIDIA GeForce RTX... with UUID
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 7: Configure WSL2 DNS -->
+        <div class="step" id="step7">
+            <div class="step-header">
+                <span class="step-number">7</span>Configure WSL2 DNS
+            </div>
+            <div class="step-content">
+                <ul>
+                    <li>Configure reliable DNS resolution</li>
+                    <li>Ensure stable internet connectivity in Ubuntu</li>
+                </ul>
+
+                <p>Open WSL2 configuration file and prevent auto-generation of DNS settings:</p>
+                <div class="command">sudo nano /etc/wsl.conf</div>
+
+                <div class="code">
+[boot]
 systemd=true
 
 [network]
-generateResolvConf = false</div>
-                <div class="warning">Save with Ctrl + X, then Y, then Enter</div>
-            </div>
+generateResolvConf = false
+                </div>
 
-            <div class="step" data-step="resolv-conf">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">6.</span>
-                    <div class="step-title">Set Google DNS</div>
-                </div>
-                <div class="step-description">Configure DNS resolution:</div>
-                <div class="code-block">
-                    sudo nano /etc/resolv.conf
-                    <button class="copy-btn" onclick="copyToClipboard('sudo nano /etc/resolv.conf')">Copy</button>
-                </div>
-                <div class="important">Delete ALL existing content and replace with:</div>
-                <div class="file-content">nameserver 8.8.8.8
-nameserver 8.8.4.4</div>
+                <p>Save with Ctrl + X, then Y, then Enter</p>
             </div>
+        </div>
 
-            <div class="step" data-step="restart-wsl">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">7.</span>
-                    <div class="step-title">Restart WSL2 & Test DNS</div>
-                </div>
-                <div class="step-description">From PowerShell (as Administrator):</div>
-                <div class="code-block">
-                    wsl --shutdown
-                    <button class="copy-btn" onclick="copyToClipboard('wsl --shutdown')">Copy</button>
-                </div>
-                <div class="step-description">Open Ubuntu and test:</div>
-                <div class="code-block">
-                    nslookup google.com
-                    <button class="copy-btn" onclick="copyToClipboard('nslookup google.com')">Copy</button>
-                </div>
-                <div class="success">Expected: Server should show 8.8.8.8</div>
+        <!-- Step 8: Set Google DNS -->
+        <div class="step" id="step8">
+            <div class="step-header">
+                <span class="step-number">8</span>Set Google DNS
             </div>
+            <div class="step-content">
+                <p>Configure DNS resolution:</p>
+                <div class="command">sudo nano /etc/resolv.conf</div>
 
-            <div class="step" data-step="ubuntu-update">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">8.</span>
-                    <div class="step-title">Update Ubuntu System</div>
+                <p>Delete ALL existing content and replace with:</p>
+                <div class="code">
+nameserver 8.8.8.8
+nameserver 8.8.4.4
                 </div>
-                <div class="step-description">Download latest packages and security updates:</div>
-                <div class="code-block">
-                    sudo apt update && sudo apt upgrade -y
-                    <button class="copy-btn" onclick="copyToClipboard('sudo apt update && sudo apt upgrade -y')">Copy</button>
+
+                <p>From PowerShell (as Administrator):</p>
+                <div class="command">wsl --shutdown</div>
+
+                <p>Open Ubuntu and test:</p>
+                <div class="command">nslookup google.com</div>
+                
+                <div class="important">
+                    <strong>Troubleshooting:</strong> If you see 142.4.19.232 instead of 8.8.8.8, the DNS settings didn't stick. Go back and re-edit /etc/resolv.conf to add the nameservers again.
+                </div>
+
+                <div class="verification">
+                    <strong>Expected:</strong> You will see server and address are set to google and this is correct
+                    <div class="code" style="margin-top: 10px; font-size: 12px;">
+nosana6@DESKTOP-85JBBCU:~$ nslookup google.com
+Server:         8.8.8.8
+Address:        8.8.8.8#53
+
+Non-authoritative answer:
+Name:   google.com
+Address: 74.125.136.100
+Name:   google.com
+Address: 74.125.136.113
+Name:   google.com
+Address: 74.125.136.102
+Name:   google.com
+Address: 74.125.136.139
+Name:   google.com
+Address: 74.125.136.138
+Name:   google.com
+Address: 74.125.136.101
+Name:   google.com
+Address: 2607:f8b0:4002:c10::71
+Name:   google.com
+Address: 2607:f8b0:4002:c10::65
+Name:   google.com
+Address: 2607:f8b0:4002:c10::64
+Name:   google.com
+Address: 2607:f8b0:4002:c10::8b
+                    </div>
+                </div>
+
+                <p>Download latest packages and security updates:</p>
+                <div class="command">sudo apt update && sudo apt upgrade -y</div>
+
+                <div class="important">
+                    <strong>Next:</strong> Restart Docker Desktop and restart Ubuntu to ensure all changes take effect and do a one last check with nslookup google.com
                 </div>
             </div>
         </div>
 
-        <!-- Docker Installation Section -->
-        <div class="section" data-section="docker">
-            <div class="section-header">
-                <div class="section-icon">🐳</div>
-                <div class="section-title">Docker Installation (AMD64)</div>
+        <!-- Step 9: Nosana Install -->
+        <div class="step" id="step9">
+            <div class="step-header">
+                <span class="step-number">9</span>Nosana Installation
             </div>
-            
-            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
-                • Install Docker Desktop for container management<br>
-                • Configure WSL2 integration<br>
-                • Test containerization capabilities
-            </div>
-            
-            <div class="step" data-step="docker-download">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">9.</span>
-                    <div class="step-title">Download Docker Desktop</div>
-                </div>
-                <div class="step-description">Download from: https://www.docker.com/products/docker-desktop/</div>
-                <div class="warning">Check "Use WSL 2 instead of Hyper-V" during installation</div>
-            </div>
+            <div class="step-content">
+                <ul>
+                    <li>Install Nosana CLI</li>
+                    <li>Secure your private keys</li>
+                    <li>Set up wallet for node operations</li>
+                    <li>Configure wallet import/export options</li>
+                </ul>
 
-            <div class="step" data-step="docker-config">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">10.</span>
-                    <div class="step-title">Configure Docker Settings</div>
-                </div>
-                <div class="step-description">Settings → General → Enable "Use WSL 2 based engine"<br>
-                Settings → Resources → WSL Integration → Enable Ubuntu-22.04</div>
-            </div>
+                <p>Install and run Nosana node:</p>
+                <div class="command">bash <(wget -qO- https://nosana.com/start.sh)</div>
 
-            <div class="step" data-step="docker-user">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">11.</span>
-                    <div class="step-title">Add User to Docker Group</div>
+                <div class="critical">
+                    <strong>CRITICAL: Backup Your Keys Before Funding!</strong><br>
+                    Always backup your private key before adding funds to your wallet.
                 </div>
-                <div class="code-block">
-                    sudo usermod -aG docker $USER
-                    <button class="copy-btn" onclick="copyToClipboard('sudo usermod -aG docker $USER')">Copy</button>
-                </div>
-                <div class="warning">Close Ubuntu window, wait 10 seconds, then reopen</div>
-            </div>
 
-            <div class="step" data-step="docker-test">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">12.</span>
-                    <div class="step-title">Test Docker Installation (Ubuntu)</div>
-                </div>
-                <div class="code-block">
-                    docker run hello-world
-                    <button class="copy-btn" onclick="copyToClipboard('docker run hello-world')">Copy</button>
-                </div>
-            </div>
+                <div class="command">sudo cat ~/.nosana/nosana_key.json</div>
+                <p>Copy the long string with [ ] brackets and backup securely</p>
 
-            <div class="step" data-step="pc-restart">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">13.</span>
-                    <div class="step-title">PC Restart</div>
+                <div class="important">
+                    <strong>Use for Reinstall of node:</strong><br>
+                    <code>sudo nano ~/.nosana/nosana_key.json</code><br>
+                    Clear with Ctrl+K, paste new key with [ ] brackets, save with Ctrl+X, Y, Enter
                 </div>
-                <div class="step-description">Restart PC to refresh DNS settings</div>
+
+                <p>Use "Import Private Key" in Phantom with your backed up key</p>
             </div>
         </div>
-
-        <!-- NVIDIA Container Setup Section -->
-        <div class="section" data-section="nvidia">
-            <div class="section-header">
-                <div class="section-icon">🎮</div>
-                <div class="section-title">NVIDIA Container Setup (Ubuntu)</div>
-            </div>
-            
-            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
-                • Enable GPU access in containers<br>
-                • Install NVIDIA container toolkit<br>
-                • Configure GPU passthrough for compute tasks
-            </div>
-            
-            <div class="step" data-step="nvidia-check">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">14.</span>
-                    <div class="step-title">Check NVIDIA Drivers</div>
-                </div>
-                <div class="code-block">
-                    nvidia-smi
-                    <button class="copy-btn" onclick="copyToClipboard('nvidia-smi')">Copy</button>
-                </div>
-                <div class="warning">Update to latest drivers from NVIDIA website if needed</div>
-            </div>
-
-            <div class="step" data-step="nvidia-repo">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">15.</span>
-                    <div class="step-title">Add NVIDIA Repository</div>
-                </div>
-                <div class="code-block">
-                    curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list && sudo apt-get update
-                    <button class="copy-btn" onclick="copyToClipboard(`curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list && sudo apt-get update`)">Copy</button>
-                </div>
-            </div>
-
-            <div class="step" data-step="nvidia-toolkit">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">16.</span>
-                    <div class="step-title">Install NVIDIA Container Toolkit</div>
-                </div>
-                <div class="code-block">
-                    sudo apt-get install -y nvidia-container-toolkit
-                    <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install -y nvidia-container-toolkit')">Copy</button>
-                </div>
-            </div>
-
-            <div class="step" data-step="nvidia-configure">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">17.</span>
-                    <div class="step-title">Configure Container</div>
-                </div>
-                <div class="code-block">
-                    sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
-                    <button class="copy-btn" onclick="copyToClipboard('sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml')">Copy</button>
-                </div>
-            </div>
-
-            <div class="step" data-step="nvidia-verify">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">18.</span>
-                    <div class="step-title">Verify CDI Configuration</div>
-                </div>
-                <div class="code-block">
-                    sudo nvidia-ctk cdi list
-                    <button class="copy-btn" onclick="copyToClipboard('sudo nvidia-ctk cdi list')">Copy</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Podman Installation Section -->
-        <div class="section" data-section="podman">
-            <div class="section-header">
-                <div class="section-icon">📦</div>
-                <div class="section-title">Podman v4 Installation</div>
-            </div>
-            
-            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
-                • Install Podman container runtime<br>
-                • Configure GPU access for compute workloads<br>
-                • Test NVIDIA GPU integration
-            </div>
-            
-            <div class="step" data-step="podman-repo">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">19.</span>
-                    <div class="step-title">Add Podman Repository</div>
-                </div>
-                <div class="code-block">
-                    echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list
-                    <button class="copy-btn" onclick="copyToClipboard(`echo \"deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/ /\" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:unstable.list`)">Copy</button>
-                </div>
-            </div>
-
-            <div class="step" data-step="podman-key">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">20.</span>
-                    <div class="step-title">Add Repository Key</div>
-                </div>
-                <div class="code-block">
-                    curl -fsSL https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/Release.key | sudo gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/devel_kubic_libcontainers_unstable.gpg > /dev/null
-                    <button class="copy-btn" onclick="copyToClipboard('curl -fsSL https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/Release.key | sudo gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/devel_kubic_libcontainers_unstable.gpg > /dev/null')">Copy</button>
-                </div>
-            </div>
-
-            <div class="step" data-step="podman-install">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">21.</span>
-                    <div class="step-title">Update and Install Podman</div>
-                </div>
-                <div class="code-block">
-                    sudo apt update && sudo apt install podman
-                    <button class="copy-btn" onclick="copyToClipboard('sudo apt update && sudo apt install podman')">Copy</button>
-                </div>
-            </div>
-
-            <div class="step" data-step="podman-version">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">22.</span>
-                    <div class="step-title">Check Podman Version</div>
-                </div>
-                <div class="code-block">
-                    podman --version
-                    <button class="copy-btn" onclick="copyToClipboard('podman --version')">Copy</button>
-                </div>
-            </div>
-
-            <div class="step" data-step="podman-gpu-test">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">23.</span>
-                    <div class="step-title">Test GPU Access with Podman</div>
-                </div>
-                <div class="code-block">
-                    podman run --rm --device nvidia.com/gpu=all --security-opt=label=disable ubuntu nvidia-smi -L
-                    <button class="copy-btn" onclick="copyToClipboard('podman run --rm --device nvidia.com/gpu=all --security-opt=label=disable ubuntu nvidia-smi -L')">Copy</button>
-                </div>
-                <div class="success">Look for: GPU 0: NVIDIA GeForce RTX... with UUID</div>
-            </div>
-        </div>
-
-        <!-- Nosana Installation Section -->
-        <div class="section" data-section="nosana">
-            <div class="section-header">
-                <div class="section-icon">🚀</div>
-                <div class="section-title">Nosana Installation</div>
-            </div>
-            
-            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
-                • Download and install Nosana node software<br>
-                • Generate wallet and configuration files
-            </div>
-            
-            <div class="step" data-step="nosana-install">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">24.</span>
-                    <div class="step-title">Run Nosana Installation Script</div>
-                </div>
-                <div class="code-block">
-                    bash <(wget -qO- https://nosana.com/start.sh)
-                    <button class="copy-btn" onclick="copyToClipboard('bash <(wget -qO- https://nosana.com/start.sh)')">Copy</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Wallet Management Section -->
-        <div class="section" data-section="wallet">
-            <div class="section-header">
-                <div class="section-icon">🔒</div>
-                <div class="section-title">Wallet Management</div>
-            </div>
-            
-            <div class="step-description" style="margin-left: 0; margin-bottom: 20px; color: #aaa;">
-                • Secure your private keys<br>
-                • Set up wallet for node operations<br>
-                • Configure wallet import/export options
-            </div>
-            
-            <div class="important">CRITICAL: Backup Your Keys Before Funding! Always backup your private key before adding funds to your wallet.</div>
-            
-            <div class="step" data-step="backup-key">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">25.</span>
-                    <div class="step-title">View & Backup Private Key</div>
-                </div>
-                <div class="code-block">
-                    sudo cat ~/.nosana/nosana_key.json
-                    <button class="copy-btn" onclick="copyToClipboard('sudo cat ~/.nosana/nosana_key.json')">Copy</button>
-                </div>
-                <div class="warning">Copy the long string with [ ] brackets and backup securely</div>
-            </div>
-
-            <div class="step" data-step="replace-key">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">26.</span>
-                    <div class="step-title">Replace Private Key (Optional)</div>
-                </div>
-                <div class="step-description">Use for Reinstall of node:</div>
-                <div class="code-block">
-                    sudo nano ~/.nosana/nosana_key.json
-                    <button class="copy-btn" onclick="copyToClipboard('sudo nano ~/.nosana/nosana_key.json')">Copy</button>
-                </div>
-                <div class="warning">Clear with Ctrl+K, paste new key with [ ] brackets, save with Ctrl+X, Y, Enter</div>
-            </div>
-
-            <div class="step" data-step="import-phantom">
-                <div class="step-header">
-                    <div class="step-checkbox"></div>
-                    <span class="step-number">27.</span>
-                    <div class="step-title">Import to Phantom Wallet</div>
-                </div>
-                <div class="step-description">Use "Import Private Key" in Phantom with your backed up key</div>
-            </div>
-        </div>
-
-        <button class="reset-btn" onclick="resetProgress()">Reset Progress</button>
     </div>
 
     <script>
-        // Load saved progress from localStorage
-        function loadProgress() {
-            const savedProgress = JSON.parse(localStorage.getItem('nosanaProgress') || '{}');
-            Object.keys(savedProgress).forEach(stepId => {
-                if (savedProgress[stepId]) {
-                    const step = document.querySelector(`[data-step="${stepId}"]`);
-                    if (step) {
-                        const checkbox = step.querySelector('.step-checkbox');
-                        checkbox.classList.add('checked');
-                        step.classList.add('completed');
-                    }
-                }
-            });
-            updateSectionIcons();
+        // Theme toggle functionality
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const button = document.querySelector('.theme-button');
+            const isDark = document.body.classList.contains('dark-mode');
+            button.textContent = isDark ? '☀️ Toggle Light Mode' : '🌙 Toggle Dark Mode';
+            
+            // Save preference
+            localStorage.setItem('darkMode', isDark);
         }
 
-        // Save progress to localStorage
-        function saveProgress() {
-            const progress = {};
-            document.querySelectorAll('.step').forEach(step => {
-                const stepId = step.dataset.step;
-                const isCompleted = step.classList.contains('completed');
-                progress[stepId] = isCompleted;
-            });
-            localStorage.setItem('nosanaProgress', JSON.stringify(progress));
-        }
-
-        // Handle step completion
-        document.querySelectorAll('.step-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('click', () => {
-                const step = checkbox.closest('.step');
-                const isCompleted = step.classList.contains('completed');
-                
-                if (isCompleted) {
-                    checkbox.classList.remove('checked');
-                    step.classList.remove('completed');
-                } else {
-                    checkbox.classList.add('checked');
-                    step.classList.add('completed');
-                    
-                    // Add a nice animation
-                    step.style.transform = 'scale(1.02)';
-                    setTimeout(() => {
-                        step.style.transform = 'scale(1)';
-                    }, 200);
-                }
-                
-                updateSectionIcons();
-                saveProgress();
-            });
-        });
-
-        // Update section icons based on completion
-        function updateSectionIcons() {
-            document.querySelectorAll('.section').forEach(section => {
-                const steps = section.querySelectorAll('.step');
-                const completedSteps = section.querySelectorAll('.step.completed');
-                const isAllCompleted = steps.length > 0 && steps.length === completedSteps.length;
-                
-                if (isAllCompleted) {
-                    section.classList.add('completed');
-                } else {
-                    section.classList.remove('completed');
-                }
-            });
-        }
-
-        // Copy to clipboard function
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                // Show feedback
-                const button = event.target;
-                const originalText = button.textContent;
-                button.textContent = 'Copied!';
-                button.style.background = '#00ff88';
-                button.style.color = '#000';
-                
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.style.background = '#333';
-                    button.style.color = '#fff';
-                }, 1000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                alert('Failed to copy to clipboard');
-            });
-        }
-
-        // Reset all progress
-        function resetProgress() {
-            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
-                localStorage.removeItem('nosanaProgress');
-                
-                // Remove all completed states
-                document.querySelectorAll('.step-checkbox.checked').forEach(checkbox => {
-                    checkbox.classList.remove('checked');
-                });
-                
-                document.querySelectorAll('.step.completed').forEach(step => {
-                    step.classList.remove('completed');
-                });
-                
-                document.querySelectorAll('.section.completed').forEach(section => {
-                    section.classList.remove('completed');
-                });
-                
-                updateSectionIcons();
+        // Load saved theme preference
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('darkMode');
+            if (savedTheme === 'true') {
+                document.body.classList.add('dark-mode');
+                document.querySelector('.theme-button').textContent = '☀️ Toggle Light Mode';
             }
-        }
-
-        // Animate sections on load
-        document.querySelectorAll('.section').forEach((section, index) => {
-            section.style.animationDelay = `${index * 0.1}s`;
         });
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadProgress();
-        });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            // Ctrl/Cmd + R to reset (prevent default and show custom reset)
-            if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+        // Smooth scrolling for quick links
+        document.querySelectorAll('.quick-link').forEach(link => {
+            link.addEventListener('click', function(e) {
                 e.preventDefault();
-                resetProgress();
-            }
-        });
-
-        // Add progress persistence warning
-        window.addEventListener('beforeunload', (e) => {
-            const hasProgress = document.querySelectorAll('.step.completed').length > 0;
-            if (hasProgress) {
-                e.preventDefault();
-                e.returnValue = 'Your progress is automatically saved. You can safely close this page.';
-            }
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
     </script>
 </body>
