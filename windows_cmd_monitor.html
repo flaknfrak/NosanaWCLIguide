@@ -407,17 +407,7 @@
                 <div class="batch-code">@echo off
 title Nosana 5 3080 Loc 5
 echo Nosana 5 3080 Loc 5 Monitor
-echo.
-echo Connecting in:
-for /l %%i in (3,-1,1) do (
-    echo %%i...
-    timeout /t 1 >nul
-)
-echo.
 echo Connecting to Nosana 5 3080 Loc 5...
-echo Server: "(windows user)"@10.0.0.299(Vethernet) 
-echo When prompted
-echo.
 ssh "(windows user)@10.0.0.299(Vethernet)" "docker logs -f nosana-node"
 pause<button class="copy-btn" onclick="copyToClipboard(`@echo off
 title Nosana 5 3080 Loc 5
